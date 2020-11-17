@@ -66,8 +66,8 @@ class RVTSkyIllum:
                 'dataType': 'numeric',
                 'value': self.max_fine_radius,
                 'required': True,
-                'displayName': "Max radius",
-                'description': "Maximal radius in pixels."
+                'displayName': "Max shadow modeling",
+                'description': "Max shadow modeling distance [pixels]."
             },
             {
                 'name': 'num_directions',
