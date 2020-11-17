@@ -54,7 +54,7 @@
 				<Value xsi:type='xs:string'>1-low</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_asvf.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_asvf.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID11'>
 				<Name>ClassName</Name>
 				<Description/>
@@ -65,7 +65,7 @@
 	</Arguments>
 	<Help>Anisotropic sky-view factor assumes that the sky is brighter in some directions than in others. The weights are based on the cosine function of half angle (Zakšek et al. 2012). There are three parameters that typically have to be set – the azimuth of the highest weight, the exponent defining the gradient from maximal to minimal weight, and the minimal possible weight. The exponent and minimal weight define the level of anisotropy – the greater the exponent and the smaller the minimal weight – the stronger the effect. This has been simplified to the low and high anisotropy levels where the minimal possible weights are 0.4 and 0.1, and the exponents are 4 and 8 respectively. </Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\ASVF.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\ASVF.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>

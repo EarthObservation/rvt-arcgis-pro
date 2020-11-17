@@ -79,7 +79,7 @@
 										<Value xsi:type='xs:string'>0-don&apos;t remove</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
-									<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_svf.py</AnyType>
+									<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro-arcgis-pro\rvt_esri_svf.py</AnyType>
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID19'>
 										<Name>ClassName</Name>
 										<Description/>
@@ -102,7 +102,7 @@
 							</Arguments>
 							<Help>Sky-view factor is a proxy for diffuse illumination and measures the proportion of the sky visible from a given point. Locally flat terrain, ridges and earthworks (e.g. building walls, cultivation ridges, burial mounds) which receive more illumination are highlighted and appear in light to white colours on a SVF image, while depressions (e.g. trenches, moats, ploughing furrows, mining pits) are dark because they receive less illumination (Zakšek et al. 2011). </Help>
 							<Type>0</Type>
-							<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\SVF.jpg</Thumbnail>
+							<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro-arcgis-pro\thumbnails\SVF.jpg</Thumbnail>
 							<Definition/>
 							<Group/>
 							<Tag/>
@@ -144,7 +144,7 @@
 							<Value xsi:type='xs:string'>value</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
-						<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_norm.py</AnyType>
+						<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro-arcgis-pro\rvt_esri_norm.py</AnyType>
 						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID30'>
 							<Name>ClassName</Name>
 							<Description/>
@@ -268,7 +268,7 @@
 													<Value xsi:type='xs:string'>Positive</Value>
 													<IsDataset>false</IsDataset>
 												</AnyType>
-												<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_opns.py</AnyType>
+												<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro-arcgis-pro\rvt_esri_opns.py</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID56'>
 													<Name>ClassName</Name>
 													<Description/>
@@ -291,7 +291,7 @@
 										</Arguments>
 										<Help>Openness is also a proxy for diffuse illumination and is based on an estimation of a mean horizon elevation angle within a defined search radius. The mean value of all zenith angles gives positive openness, while the mean nadir value gives negative openness. Positive openness is similar to skyview factor, with a more ‘flattened feel’, while negative openness gives additional information on convex features (Yokoyama et al. 2002). Because it is direction and shading independent and removes general topography, it is useful for automatic feature recognition. </Help>
 										<Type>0</Type>
-										<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\OPNS_POS.jpg</Thumbnail>
+										<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro-arcgis-pro\thumbnails\OPNS_POS.jpg</Thumbnail>
 										<Definition/>
 										<Group/>
 										<Tag/>
@@ -343,7 +343,7 @@
 										<Value xsi:type='xs:string'>value</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
-									<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_norm.py</AnyType>
+									<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro-arcgis-pro\rvt_esri_norm.py</AnyType>
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID69'>
 										<Name>ClassName</Name>
 										<Description/>
@@ -445,7 +445,7 @@
 																<Value xsi:type='xs:string'>degree</Value>
 																<IsDataset>false</IsDataset>
 															</AnyType>
-															<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_slope.py</AnyType>
+															<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro-arcgis-pro\rvt_esri_slope.py</AnyType>
 															<AnyType xsi:type='typens:RasterFunctionVariable' id='ID91'>
 																<Name>ClassName</Name>
 																<Description/>
@@ -468,7 +468,7 @@
 													</Arguments>
 													<Help>Slope gradient represents the maximum rate of change between each cell and its neighbours and can be calculated either as degree of slope or as percentage of slope. If presented in an inverted greyscale (steep slopes are darker), slope everity retains a very plastic representation of morphology (Doneus and Briese 2006). However, additional information is needed to distinguish between positive/convex (e.g. banks) and negative/concave (e.g. ditches) features since slopes of the same gradient (regardless of rising or falling) are presented with the same colour. The method requires no parameters.</Help>
 													<Type>0</Type>
-													<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\SLOPE.jpg</Thumbnail>
+													<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro-arcgis-pro\thumbnails\SLOPE.jpg</Thumbnail>
 													<Definition/>
 													<Group/>
 													<Tag/>
@@ -520,7 +520,7 @@
 													<Value xsi:type='xs:string'>value</Value>
 													<IsDataset>false</IsDataset>
 												</AnyType>
-												<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_norm.py</AnyType>
+												<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_norm.py</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID104'>
 													<Name>ClassName</Name>
 													<Description/>
@@ -602,7 +602,7 @@
 																<Value xsi:type='xs:double'>35</Value>
 																<IsDataset>false</IsDataset>
 															</AnyType>
-															<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_hillshade.py</AnyType>
+															<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_hillshade.py</AnyType>
 															<AnyType xsi:type='typens:RasterFunctionVariable' id='ID121'>
 																<Name>ClassName</Name>
 																<Description/>
@@ -625,7 +625,7 @@
 													</Arguments>
 													<Help>Analytical hillshading is straightforward to interpret even by non-experts and without training. However direct illumination restricts the visualization in dark shades and brightly lit areas, where no or very little detail can be perceived. A single light beam also fails to reveal linear structures that lie parallel to it which can be problematic in some applications, especially in archaeology. </Help>
 													<Type>0</Type>
-													<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\HILLSHADE.jpg</Thumbnail>
+													<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\HILLSHADE.jpg</Thumbnail>
 													<Definition/>
 													<Group/>
 													<Tag/>
@@ -667,7 +667,7 @@
 													<Value xsi:type='xs:string'>value</Value>
 													<IsDataset>false</IsDataset>
 												</AnyType>
-												<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_norm.py</AnyType>
+												<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_norm.py</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID132'>
 													<Name>ClassName</Name>
 													<Description/>
@@ -718,7 +718,7 @@
 										<Value xsi:type='xs:double'>50</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
-									<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_blend.py</AnyType>
+									<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_blend.py</AnyType>
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID141'>
 										<Name>ClassName</Name>
 										<Description/>
@@ -769,7 +769,7 @@
 							<Value xsi:type='xs:double'>50</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
-						<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_blend.py</AnyType>
+						<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_blend.py</AnyType>
 						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID150'>
 							<Name>ClassName</Name>
 							<Description/>
@@ -820,7 +820,7 @@
 				<Value xsi:type='xs:double'>25</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_blend.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_blend.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID159'>
 				<Name>ClassName</Name>
 				<Description/>

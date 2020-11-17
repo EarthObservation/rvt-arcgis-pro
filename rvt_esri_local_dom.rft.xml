@@ -54,7 +54,7 @@
 				<Value xsi:type='xs:double'>1.7</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_local_dom.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_local_dom.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID11'>
 				<Name>ClassName</Name>
 				<Description/>
@@ -65,7 +65,7 @@
 	</Arguments>
 	<Help>Local dominance visualization of a DEM shows how dominant an observer standing above a certain pixel would be for a local surrounding area (Hesse 2016). Dominance is higher for points on local protrusions as well as on slopes, and lower for points in local depressions. It is well suited for very subtle positive relief features such as former field boundaries or heavily eroded burial mounds, but also delivers very good results for topographic depressions such as dolines, mining traces, and hollow ways. </Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\LOCAL_DOMINANCE.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\LOCAL_DOMINANCE.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>

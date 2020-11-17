@@ -33,7 +33,7 @@
 				<Value xsi:type='xs:double'>35</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_hillshade.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_hillshade.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID8'>
 				<Name>ClassName</Name>
 				<Description/>
@@ -44,7 +44,7 @@
 	</Arguments>
 	<Help>Analytical hillshading is straightforward to interpret even by non-experts and without training. However direct illumination restricts the visualization in dark shades and brightly lit areas, where no or very little detail can be perceived. A single light beam also fails to reveal linear structures that lie parallel to it which can be problematic in some applications, especially in archaeology. </Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\HILLSHADE.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\HILLSHADE.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>

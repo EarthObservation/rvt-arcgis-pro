@@ -40,7 +40,7 @@
 				<Value xsi:type='xs:double'>100</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_blend.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_blend.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID9'>
 				<Name>ClassName</Name>
 				<Description/>

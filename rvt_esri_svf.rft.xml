@@ -40,7 +40,7 @@
 				<Value xsi:type='xs:string'>0-don&apos;t remove</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_svf.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_svf.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID9'>
 				<Name>ClassName</Name>
 				<Description/>
@@ -51,7 +51,7 @@
 	</Arguments>
 	<Help>Sky-view factor is a proxy for diffuse illumination and measures the proportion of the sky visible from a given point. Locally flat terrain, ridges and earthworks (e.g. building walls, cultivation ridges, burial mounds) which receive more illumination are highlighted and appear in light to white colours on a SVF image, while depressions (e.g. trenches, moats, ploughing furrows, mining pits) are dark because they receive less illumination (Zakšek et al. 2011). </Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\SVF.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\SVF.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>

@@ -26,7 +26,7 @@
 				<Value xsi:type='xs:double'>20</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_slrm.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_slrm.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID7'>
 				<Name>ClassName</Name>
 				<Description/>
@@ -37,7 +37,7 @@
 	</Arguments>
 	<Help>Local relief modelling removes the large scale morphological elements (hills, alleys…) from data so only small scale features remain (e.g. archaeology). This version of the tool uses a simplified process – the trend is computed by a simple mean filter and a trend removed model is produced directly by subtracting the filtered model from the original.</Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\SLRM.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\SLRM.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>

@@ -40,7 +40,7 @@
 				<Value xsi:type='xs:double'>35</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_multihillshade.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_multihillshade.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID9'>
 				<Name>ClassName</Name>
 				<Description/>
@@ -51,7 +51,7 @@
 	</Arguments>
 	<Help>Analytical hillshading can be calculated in multiple directions that are equally distributed between 0° and 360° (Hobbs 1999). 0° is always in band 1, followed by azimuths in clockwise direction, e.g. 45° in band 2, 90° in band 3 … 315° in band 8, for calculation in 8 directions.</Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\MULTI_HILLSHADE.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\MULTI_HILLSHADE.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>

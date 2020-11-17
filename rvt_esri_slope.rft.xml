@@ -33,7 +33,7 @@
 				<Value xsi:type='xs:string'>degree</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\RVT\rvt_esri_slope.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_slope.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID8'>
 				<Name>ClassName</Name>
 				<Description/>
@@ -44,7 +44,7 @@
 	</Arguments>
 	<Help>Slope gradient represents the maximum rate of change between each cell and its neighbours and can be calculated either as degree of slope or as percentage of slope. If presented in an inverted greyscale (steep slopes are darker), slope everity retains a very plastic representation of morphology (Doneus and Briese 2006). However, additional information is needed to distinguish between positive/convex (e.g. banks) and negative/concave (e.g. ditches) features since slopes of the same gradient (regardless of rising or falling) are presented with the same colour. The method requires no parameters.</Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\RVT\thumbnails\SLOPE.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\SLOPE.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>
