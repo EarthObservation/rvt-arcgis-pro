@@ -1,5 +1,5 @@
 <RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/2.6.0'>
-	<Name>rvt_esri_slrm</Name>
+	<Name>slrm</Name>
 	<Description>RVT Simplified local relief model. Calculates Simplified local relief model.</Description>
 	<Function xsi:type='typens:PythonAdapterFunction' id='ID1'>
 		<Name>RVT simple local relief model.</Name>
@@ -26,7 +26,7 @@
 				<Value xsi:type='xs:double'>20</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_slrm.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\slrm.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID7'>
 				<Name>ClassName</Name>
 				<Description/>

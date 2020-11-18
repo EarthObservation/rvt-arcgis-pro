@@ -1,5 +1,5 @@
 <RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/2.6.0'>
-	<Name>rvt_esri_svf</Name>
+	<Name>svf</Name>
 	<Description>RVT Sky-view factor. Calculates sky-view factor.</Description>
 	<Function xsi:type='typens:PythonAdapterFunction' id='ID1'>
 		<Name>RVT Sky-view factor</Name>
@@ -40,7 +40,7 @@
 				<Value xsi:type='xs:string'>0-don&apos;t remove</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt_esri_svf.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\svf.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID9'>
 				<Name>ClassName</Name>
 				<Description/>
