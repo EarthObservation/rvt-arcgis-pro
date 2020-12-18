@@ -1,4 +1,4 @@
-# Relief Visualization Toolbox ArcGIS Pro python raster functions 
+# Relief Visualization Toolbox ArcGIS Pro Python Raster Functions 
 
 Relief Visualization Toolbox was produced to help scientist visualize raster elevation model datasets. We have narrowed down the selection to include techniques that have proven to be effective for identification of small scale features. Default settings therefore assume working with high resolution digital elevation models, derived from airborne laser scanning missions (lidar).
 
@@ -21,9 +21,9 @@ Under _Raster functions_ pane you will have tab _Custom_ where will be _rvt-arcg
 
 ## Documentation
 
-Documentation of the RVT ArcGIS Pro python raster functions is under development.
+Documentation of the RVT ArcGIS Pro python raster functions is available at [Relief Visualization Toolbox ArcGIS Pro Raster Functions](https://rvt-arcgis-pro.readthedocs.io/).
 
-Use the RVT Python documentation, availabe at [Read the Docs](https://rvt-py.readthedocs.io/).
+RVT Python documentation is available at [Relief Visualization Toolbox in Python](https://rvt-py.readthedocs.io).
 
 ## References
 
