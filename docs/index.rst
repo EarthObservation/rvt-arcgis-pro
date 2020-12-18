@@ -61,14 +61,8 @@ This project is licensed under the terms of the `Apache License <http://www.apac
 
 .. toctree::
    :maxdepth: 1
+   :hidden:
    :caption: Contents:
 
    install
    usage
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
