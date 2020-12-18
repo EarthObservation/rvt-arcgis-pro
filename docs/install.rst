@@ -21,4 +21,4 @@ Run/restart ArcGIS Pro. Open the Raster functions pane at ``Imagery → Raster F
 
 Under ``Raster Functions`` pane you will have tab ``Custom`` where will be ``rvt-arcgis-pro`` group with RVT raster functions.
 
-   .. image:: ./figures/arcgispro_raster_functions.png
+   .. image:: ./figures/ArcGISPro_raster_functions.png
