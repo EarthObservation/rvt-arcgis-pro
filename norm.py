@@ -82,11 +82,12 @@ class RVTNormalize:
     def getConfiguration(self, **scalars):
         return {
             'compositeRasters': False,
-            'inheritProperties': 4 | 8,
+            'inheritProperties': 4,
             'invalidateProperties': 2 | 4 | 8,
             'inputMask': False,
             'resampling': False,
-            'padding': 0
+            'padding': 0,
+            'resamplingType': 4
         }
 
     def updateRasterInfo(self, **kwargs):

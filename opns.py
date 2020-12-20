@@ -82,11 +82,12 @@ class RVTOpenness:
     def getConfiguration(self, **scalars):
         return {
             'compositeRasters': False,
-            'inheritProperties': 2 | 4 | 8,
+            'inheritProperties': 2 | 4,
             'invalidateProperties': 2 | 4 | 8,
             'inputMask': False,
             'resampling': False,
-            'padding': self.padding
+            'padding': self.padding,
+            'resamplingType': 4
         }
 
     def updateRasterInfo(self, **kwargs):
