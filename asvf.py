@@ -89,6 +89,8 @@ class RVTASvf:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(nr_directions=scalars.get('nr_directions'), max_rad=scalars.get("max_rad"),
+                     noise=scalars.get("noise_remove"), level=scalars.get("level"), direction=scalars.get("direction"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4 | 8,
@@ -105,8 +107,6 @@ class RVTASvf:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
-        self.prepare(nr_directions=kwargs.get('nr_directions'), max_rad=kwargs.get("max_rad"),
-                     noise=kwargs.get("noise_remove"), level=kwargs.get("level"), direction=kwargs.get("direction"))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):

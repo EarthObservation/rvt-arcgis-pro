@@ -69,6 +69,8 @@ class RVTSvf:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(nr_directions=scalars.get('nr_directions'), max_rad=scalars.get("max_rad"),
+                     noise=scalars.get("noise_remove"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -86,8 +88,6 @@ class RVTSvf:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
-        self.prepare(nr_directions=kwargs.get('nr_directions'), max_rad=kwargs.get("max_rad"),
-                     noise=kwargs.get("noise_remove"))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
@@ -101,7 +101,6 @@ class RVTSvf:
                                            compute_opns=False, svf_n_dir=self.nr_directions, svf_r_max=self.max_rad,
                                            svf_noise=self.noise)
         svf = dict_svf["svf"][self.padding:-self.padding, self.padding:-self.padding]  # remove padding
-
         pixelBlocks['output_pixels'] = svf.astype(props['pixelType'], copy=False)
         return pixelBlocks
 

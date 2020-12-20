@@ -96,6 +96,9 @@ class RVTSkyIllum:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(sky_model=scalars.get('sky_model'), compute_shadow=scalars.get("compute_shadow"),
+                     max_fine_radius=scalars.get("max_fine_radius"), num_directions=scalars.get("num_directions"),
+                     shadow_az=scalars.get("shadow_az"), shadow_el=scalars.get("shadow_el"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -113,9 +116,6 @@ class RVTSkyIllum:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
-        self.prepare(sky_model=kwargs.get('sky_model'), compute_shadow=kwargs.get("compute_shadow"),
-                     max_fine_radius=kwargs.get("max_fine_radius"), num_directions=kwargs.get("num_directions"),
-                     shadow_az=kwargs.get("shadow_az"), shadow_el=kwargs.get("shadow_el"))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):

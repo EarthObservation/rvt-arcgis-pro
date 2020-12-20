@@ -68,6 +68,7 @@ class RVTBlend:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(blend_mode=scalars.get('blend_mode'), opacity=scalars.get("opacity"))
         return {
             'compositeRasters': False,
             'inheritProperties': 4,
@@ -85,7 +86,6 @@ class RVTBlend:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ({'minimum': 0.0, 'maximum': 1.0}, )
-        self.prepare(blend_mode=kwargs.get('blend_mode'), opacity=kwargs.get("opacity"))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):

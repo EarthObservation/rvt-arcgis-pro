@@ -89,6 +89,8 @@ class RVTLocalDominance:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(min_rad=scalars.get('min_rad'), max_rad=scalars.get("max_rad"), rad_inc=scalars.get("rad_inc"),
+                     anglr_res=scalars.get("anglr_res"), observer_h=scalars.get("observer_h"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -106,8 +108,6 @@ class RVTLocalDominance:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
-        self.prepare(min_rad=kwargs.get('min_rad'), max_rad=kwargs.get("max_rad"), rad_inc=kwargs.get("rad_inc"),
-                     anglr_res=kwargs.get("anglr_res"), observer_h=kwargs.get("observer_h"))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):

@@ -50,6 +50,7 @@ class RVTSlrm:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(radius_cell=scalars.get('radius_cell'))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -67,7 +68,6 @@ class RVTSlrm:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
-        self.prepare(radius_cell=kwargs.get('radius_cell'))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):

@@ -60,6 +60,7 @@ class RVTSlope:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(ve_factor=scalars.get('ve_factor'), output_unit=scalars.get("output_unit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -77,7 +78,6 @@ class RVTSlope:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
-        self.prepare(ve_factor=kwargs.get('ve_factor'), output_unit=kwargs.get("output_unit"))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):

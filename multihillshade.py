@@ -69,6 +69,8 @@ class RVTMultiHillshade:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(nr_directions=scalars.get('nr_directions'), elevation=scalars.get("sun_elevation"),
+                     calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -84,8 +86,6 @@ class RVTMultiHillshade:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = int(self.nr_directions) * ({'minimum': -1, 'maximum': 1},)
-        self.prepare(nr_directions=kwargs.get('nr_directions'), elevation=kwargs.get("sun_elevation"),
-                     calc_8_bit=kwargs.get("calc_8_bit"))
         if self.calc_8_bit:
             kwargs['output_info']['bandCount'] = 3
         else:

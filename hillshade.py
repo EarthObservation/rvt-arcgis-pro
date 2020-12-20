@@ -59,6 +59,7 @@ class RVTHillshade:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(azimuth=scalars.get('sun_azimuth'), elevation=scalars.get("sun_elevation"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -76,7 +77,6 @@ class RVTHillshade:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
-        self.prepare(azimuth=kwargs.get('sun_azimuth'), elevation=kwargs.get("sun_elevation"))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):

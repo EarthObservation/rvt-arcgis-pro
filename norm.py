@@ -80,6 +80,8 @@ class RVTNormalize:
         ]
 
     def getConfiguration(self, **scalars):
+        self.prepare(visualization=scalars.get('visualization'), minimum=scalars.get("minimum"),
+                     maximum=scalars.get("maximum"), normalization=scalars.get("normalization"))
         return {
             'compositeRasters': False,
             'inheritProperties': 4,
@@ -97,8 +99,6 @@ class RVTNormalize:
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ({'minimum': 0.0, 'maximum': 1.0}, )
-        self.prepare(visualization=kwargs.get('visualization'), minimum=kwargs.get("minimum"),
-                     maximum=kwargs.get("maximum"), normalization=kwargs.get("normalization"))
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
