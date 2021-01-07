@@ -7,31 +7,19 @@ path = r'D:\RVT_py\debug'
 filename = 'debug.txt'
 pickle_file = os.path.join(path, filename)
 pix_array = pickle.load(open(pickle_file, "rb"))
-print(np.min(pix_array))
+print(pix_array)
 
 #print(len(pix_array))
 
-# layers = rvt.blend.BlenderLayers()
-# layers.layers = pix_array
-# # print(len(layers.layers))
-# #print(layers.layers[-1].vis)
-#
-# for lyr in layers.layers:
-#     if lyr.image is None:
-#         print("None")
-#         continue
-#     print("{} {}".format(lyr.vis, lyr.image_path))
 
-#print(layers.render_all_images())
-
-# ###
+# ###  COPY INTO CODE AND UNCOMMENT IT
 # import pickle
 # import os
 
 # debug_logs_directory = r'D:\RVT_py\debug'
 # fname = 'debug.txt'
 # filename = os.path.join(debug_logs_directory, fname)
-# pix_array = multihillshade
+# pix_array = array
 # pickle.dump(pix_array, open(filename, "wb"))
 # ###
 

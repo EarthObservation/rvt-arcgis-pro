@@ -1,6 +1,6 @@
 <RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/2.6.0'>
-	<Name>Simplified relief model</Name>
-	<Description>RVT Simplified local relief model. Calculates Simplified local relief model.</Description>
+	<Name>Simple local relief</Name>
+	<Description>RVT Simple local relief model. Calculates Simple local relief model.</Description>
 	<Function xsi:type='typens:PythonAdapterFunction' id='ID1'>
 		<Name>RVT simple local relief model.</Name>
 		<Description>Calculates simple local relief model.</Description>

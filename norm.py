@@ -95,7 +95,7 @@ class RVTNormalize:
     def updateRasterInfo(self, **kwargs):
         kwargs['output_info']['bandCount'] = 1
         r = kwargs['raster_info']
-        kwargs['output_info']['noData'] = -3.4028235e+038
+        kwargs['output_info']['noData'] = np.nan
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ({'minimum': 0.0, 'maximum': 1.0}, )
