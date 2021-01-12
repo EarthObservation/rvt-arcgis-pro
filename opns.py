@@ -31,8 +31,6 @@ class RVTOpenness:
         self.noise = "0-don't remove"
         self.pos_neg = "Positive"
         self.padding = int(self.max_rad/2)
-        self.fill_no_data = True
-        self.keep_original_no_data = False
 
     def getParameterInfo(self):
         return [
@@ -78,30 +76,12 @@ class RVTOpenness:
                 'domain': ("Positive", "Negative"),
                 'description': "Which one to calculate (negative openness is openness where dem is negative, "
                                "multiplied with -1))."
-            },
-            {
-                'name': 'fill_no_data',
-                'dataType': 'boolean',
-                'value': self.fill_no_data,
-                'required': True,
-                'displayName': "Fill no-data (holes)",
-                'description': "If True it fills no_data pixels with mean of neighbors (3x3)."
-            },
-            {
-                'name': 'keep_original_no_data',
-                'dataType': 'boolean',
-                'value': self.keep_original_no_data,
-                'required': True,
-                'displayName': "Keep original no-data",
-                'description': "If True (fill no-data has to be True) it keeps no-data from input raster. "
             }
         ]
 
     def getConfiguration(self, **scalars):
         self.prepare(nr_directions=scalars.get('nr_directions'), max_rad=scalars.get("max_rad"),
-                     noise=scalars.get("noise_remove"), pos_neg=scalars.get("pos_neg"),
-                     fill_no_data=scalars.get("fill_no_data"),
-                     keep_original_no_data=scalars.get("keep_original_no_data"))
+                     noise=scalars.get("noise_remove"), pos_neg=scalars.get("pos_neg"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -129,28 +109,22 @@ class RVTOpenness:
         no_data = props["noData"]
         if no_data is not None:
             no_data = props["noData"][0]
-        else:  # if no data is None we can't fill no data
-            self.fill_no_data = False
-            self.keep_original_no_data = False
 
         if self.pos_neg == "Negative":
             dem = -1 * dem
 
         dict_opns = rvt.vis.sky_view_factor(dem=dem, resolution=pixel_size[0], compute_svf=False, compute_asvf=False,
                                             compute_opns=True, svf_n_dir=self.nr_directions, svf_r_max=self.max_rad,
-                                            svf_noise=self.noise, no_data=no_data, fill_no_data=self.fill_no_data,
-                                            keep_original_no_data=self.keep_original_no_data)
+                                            svf_noise=self.noise, no_data=no_data, fill_no_data=False,
+                                            keep_original_no_data=False)
         opns = dict_opns["opns"][self.padding:-self.padding, self.padding:-self.padding]
 
         pixelBlocks['output_pixels'] = opns.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, nr_directions=16, max_rad=10, noise="0", pos_neg="Positive", fill_no_data=True,
-                keep_original_no_data=False):
+    def prepare(self, nr_directions=16, max_rad=10, noise="0", pos_neg="Positive"):
         self.nr_directions = int(nr_directions)
         self.max_rad = int(max_rad)
         self.noise = int(noise[0])
         self.pos_neg = pos_neg
         self.padding = int(max_rad/2)
-        self.fill_no_data = fill_no_data
-        self.keep_original_no_data = keep_original_no_data

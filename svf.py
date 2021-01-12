@@ -30,8 +30,6 @@ class RVTSvf:
         self.max_rad = 10.
         self.noise = "0-don't remove"
         self.padding = int(self.max_rad/2)
-        self.fill_no_data = True
-        self.keep_original_no_data = False
 
     def getParameterInfo(self):
         return [
@@ -67,29 +65,12 @@ class RVTSvf:
                 'displayName': "Noise removal",
                 'domain': ("0-don't remove", "1-low", "2-med", "3-high"),
                 'description': ("The level of noise remove (0-don't remove, 1-low, 2-med, 3-high).")
-            },
-            {
-                'name': 'fill_no_data',
-                'dataType': 'boolean',
-                'value': self.fill_no_data,
-                'required': True,
-                'displayName': "Fill no-data (holes)",
-                'description': "If True it fills no_data pixels with mean of neighbors (3x3)."
-            },
-            {
-                'name': 'keep_original_no_data',
-                'dataType': 'boolean',
-                'value': self.keep_original_no_data,
-                'required': True,
-                'displayName': "Keep original no-data",
-                'description': "If True (fill no-data has to be True) it keeps no-data from input raster. "
             }
         ]
 
     def getConfiguration(self, **scalars):
         self.prepare(nr_directions=scalars.get('nr_directions'), max_rad=scalars.get("max_rad"),
-                     noise=scalars.get("noise_remove"), fill_no_data=scalars.get("fill_no_data"),
-                     keep_original_no_data=scalars.get("keep_original_no_data"))
+                     noise=scalars.get("noise_remove"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -117,22 +98,17 @@ class RVTSvf:
         no_data = props["noData"]
         if no_data is not None:
             no_data = props["noData"][0]
-        else:  # if no data is None we can't fill no data
-            self.fill_no_data = False
-            self.keep_original_no_data = False
 
         dict_svf = rvt.vis.sky_view_factor(dem=dem, resolution=pixel_size[0], compute_svf=True, compute_asvf=False,
                                            compute_opns=False, svf_n_dir=self.nr_directions, svf_r_max=self.max_rad,
-                                           svf_noise=self.noise, no_data=no_data, fill_no_data=self.fill_no_data,
-                                           keep_original_no_data=self.keep_original_no_data)
+                                           svf_noise=self.noise, no_data=no_data, fill_no_data=False,
+                                           keep_original_no_data=False)
         svf = dict_svf["svf"][self.padding:-self.padding, self.padding:-self.padding]  # remove padding
         pixelBlocks['output_pixels'] = svf.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, nr_directions=16, max_rad=10, noise="0", fill_no_data=True, keep_original_no_data=False):
+    def prepare(self, nr_directions=16, max_rad=10, noise="0"):
         self.nr_directions = int(nr_directions)
         self.max_rad = int(max_rad)
         self.noise = int(noise[0])
         self.padding = int(max_rad/2)
-        self.fill_no_data = fill_no_data
-        self.keep_original_no_data = keep_original_no_data

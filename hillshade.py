@@ -29,8 +29,6 @@ class RVTHillshade:
         self.azimuth = 315.
         self.elevation = 35.
         self.padding = 1
-        self.fill_no_data = True
-        self.keep_original_no_data = False
 
     def getParameterInfo(self):
         return [
@@ -57,29 +55,11 @@ class RVTHillshade:
                 'required': False,
                 'displayName': "Sun elevation",
                 'description': "Solar vertical angle (above the horizon) in degrees."
-            },
-            {
-                'name': 'fill_no_data',
-                'dataType': 'boolean',
-                'value': self.fill_no_data,
-                'required': True,
-                'displayName': "Fill no-data (holes)",
-                'description': "If True it fills no_data pixels with mean of neighbors (3x3)."
-            },
-            {
-                'name': 'keep_original_no_data',
-                'dataType': 'boolean',
-                'value': self.keep_original_no_data,
-                'required': True,
-                'displayName': "Keep original no-data",
-                'description': "If True (fill no-data has to be True) it keeps no-data from input raster. "
             }
         ]
 
     def getConfiguration(self, **scalars):
-        self.prepare(azimuth=scalars.get('sun_azimuth'), elevation=scalars.get("sun_elevation"),
-                     fill_no_data=scalars.get("fill_no_data"),
-                     keep_original_no_data=scalars.get("keep_original_no_data"))
+        self.prepare(azimuth=scalars.get('sun_azimuth'), elevation=scalars.get("sun_elevation"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -107,20 +87,15 @@ class RVTHillshade:
         no_data = props["noData"]
         if no_data is not None:
             no_data = props["noData"][0]
-        else:  # if no data is None we can't fill no data
-            self.fill_no_data = False
-            self.keep_original_no_data = False
 
         hillshade = rvt.vis.hillshade(dem=dem, resolution_x=pixel_size[0],
                                       resolution_y=pixel_size[1], sun_azimuth=self.azimuth,
-                                      sun_elevation=self.elevation, no_data=no_data, fill_no_data=self.fill_no_data,
-                                      keep_original_no_data=self.keep_original_no_data)
+                                      sun_elevation=self.elevation, no_data=no_data, fill_no_data=False,
+                                      keep_original_no_data=False)
         hillshade = hillshade[self.padding:-self.padding, self.padding:-self.padding]  # remove padding
         pixelBlocks['output_pixels'] = hillshade.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, azimuth=315, elevation=35, fill_no_data=True, keep_original_no_data=False):
+    def prepare(self, azimuth=315, elevation=35):
         self.azimuth = azimuth
         self.elevation = elevation
-        self.fill_no_data = fill_no_data
-        self.keep_original_no_data = keep_original_no_data

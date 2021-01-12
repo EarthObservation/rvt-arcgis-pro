@@ -29,8 +29,6 @@ class RVTSlope:
         self.ve_factor = 1.
         self.output_unit = "degree"
         self.padding = 1
-        self.fill_no_data = True
-        self.keep_original_no_data = False
 
     def getParameterInfo(self):
         return [
@@ -48,7 +46,7 @@ class RVTSlope:
                 'value': self.ve_factor,
                 'required': False,
                 'displayName': "Ve-factor",
-                'description': ("Vertical exaggeration factor (must be greater than 0).")
+                'description': "Vertical exaggeration factor (must be greater than 0)."
             },
             {
                 'name': 'output_unit',
@@ -57,30 +55,12 @@ class RVTSlope:
                 'required': False,
                 'displayName': "Output unit",
                 'domain': ('degree', 'radian', 'percent'),
-                'description': ("Unit of the output raster.")
-            },
-            {
-                'name': 'fill_no_data',
-                'dataType': 'boolean',
-                'value': self.fill_no_data,
-                'required': True,
-                'displayName': "Fill no-data (holes)",
-                'description': "If True it fills no_data pixels with mean of neighbors (3x3)."
-            },
-            {
-                'name': 'keep_original_no_data',
-                'dataType': 'boolean',
-                'value': self.keep_original_no_data,
-                'required': True,
-                'displayName': "Keep original no-data",
-                'description': "If True (fill no-data has to be True) it keeps no-data from input raster. "
+                'description': "Unit of the output raster."
             }
         ]
 
     def getConfiguration(self, **scalars):
-        self.prepare(ve_factor=scalars.get('ve_factor'), output_unit=scalars.get("output_unit"),
-                     fill_no_data=scalars.get("fill_no_data"),
-                     keep_original_no_data=scalars.get("keep_original_no_data"))
+        self.prepare(ve_factor=scalars.get('ve_factor'), output_unit=scalars.get("output_unit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -105,33 +85,20 @@ class RVTSlope:
         pixel_size = props['cellSize']
         if (pixel_size[0] <= 0) | (pixel_size[1] <= 0):
             raise Exception("Input raster cell size is invalid.")
-        ###  COPY INTO CODE AND UNCOMMENT IT
-        import pickle
-        import os
 
-        debug_logs_directory = r'D:\RVT_py\debug'
-        fname = 'debug.txt'
-        filename = os.path.join(debug_logs_directory, fname)
-        pix_array = props["noData"]
-        pickle.dump(pix_array, open(filename, "wb"))
-        ###
         no_data = props["noData"]
         if no_data is not None:
             no_data = props["noData"][0]
-        else:  # if no data is None we can't fill no data
-            self.fill_no_data = False
-            self.keep_original_no_data = False
 
         dict_slp_asp = rvt.vis.slope_aspect(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
                                             ve_factor=self.ve_factor, output_units=self.output_unit, no_data=no_data,
-                                            fill_no_data=self.fill_no_data,
-                                            keep_original_no_data=self.keep_original_no_data)
+                                            fill_no_data=False,
+                                            keep_original_no_data=False)
         slope = dict_slp_asp["slope"][self.padding:-self.padding, self.padding:-self.padding]
         pixelBlocks['output_pixels'] = slope.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, ve_factor=315, output_unit=35, fill_no_data=True, keep_original_no_data=False):
+    def prepare(self, ve_factor=315, output_unit=35):
         self.ve_factor = ve_factor
         self.output_unit = output_unit
-        self.fill_no_data = fill_no_data
-        self.keep_original_no_data = keep_original_no_data
+
