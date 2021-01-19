@@ -7,6 +7,7 @@ Credits:
     Žiga Kokalj (ziga.kokalj@zrc-sazu.si)
     Krištof Oštir (kristof.ostir@fgg.uni-lj.si)
     Klemen Zakšek
+    Peter Pehani
     Klemen Čotar
     Maja Somrak
     Žiga Maroh
@@ -1076,7 +1077,7 @@ def horizon_generate_pyramids(dem,
 def sky_illumination(dem,
                      resolution,
                      sky_model="overcast",
-                     compute_shadow=True,
+                     compute_shadow=False,
                      shadow_horizon_only=False,
                      max_fine_radius=100,
                      num_directions=32,
