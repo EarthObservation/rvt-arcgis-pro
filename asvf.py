@@ -6,9 +6,11 @@ NAME:
 PROJECT MANAGER:
     Žiga Kokalj (ziga.kokalj@zrc-sazu.si)
 
-AUTHORS:
+Credits:
+    Žiga Kokalj (ziga.kokalj@zrc-sazu.si)
+    Krištof Oštir (kristof.ostir@fgg.uni-lj.si)
     Klemen Zakšek
-    Krištof Oštir
+    Peter Pehani
     Klemen Čotar
     Maja Somrak
     Žiga Maroh

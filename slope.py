@@ -8,6 +8,7 @@ Credits:
     Žiga Kokalj (ziga.kokalj@zrc-sazu.si)
     Krištof Oštir (kristof.ostir@fgg.uni-lj.si)
     Klemen Zakšek
+    Peter Pehani
     Klemen Čotar
     Maja Somrak
     Žiga Maroh
@@ -26,7 +27,6 @@ class RVTSlope:
         self.name = "RVT slope"
         self.description = "Calculates slope(gradient)."
         # default values
-        self.ve_factor = 1.
         self.output_unit = "degree"
         self.padding = 1
 
@@ -41,14 +41,6 @@ class RVTSlope:
                 'description': "Input raster for which to create the slope map."
             },
             {
-                'name': 've_factor',
-                'dataType': 'numeric',
-                'value': self.ve_factor,
-                'required': False,
-                'displayName': "Ve-factor",
-                'description': "Vertical exaggeration factor (must be greater than 0)."
-            },
-            {
                 'name': 'output_unit',
                 'dataType': 'string',
                 'value': self.output_unit,
@@ -60,7 +52,7 @@ class RVTSlope:
         ]
 
     def getConfiguration(self, **scalars):
-        self.prepare(ve_factor=scalars.get('ve_factor'), output_unit=scalars.get("output_unit"))
+        self.prepare(output_unit=scalars.get("output_unit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -91,14 +83,13 @@ class RVTSlope:
             no_data = props["noData"][0]
 
         dict_slp_asp = rvt.vis.slope_aspect(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
-                                            ve_factor=self.ve_factor, output_units=self.output_unit, no_data=no_data,
+                                            output_units=self.output_unit, no_data=no_data,
                                             fill_no_data=False,
                                             keep_original_no_data=False)
         slope = dict_slp_asp["slope"][self.padding:-self.padding, self.padding:-self.padding]
         pixelBlocks['output_pixels'] = slope.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, ve_factor=315, output_unit=35):
-        self.ve_factor = ve_factor
+    def prepare(self, output_unit=35):
         self.output_unit = output_unit
 
