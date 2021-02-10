@@ -96,6 +96,11 @@ class RVTBlend:
         if (pixel_size[0] <= 0) | (pixel_size[1] <= 0):
             raise Exception("Input raster cell size is invalid.")
 
+        if np.nanmin(top_raster) < 0 or np.nanmax(top_raster) > 1:
+            top_raster = rvt.blend_func.scale_0_to_1(top_raster)
+        if np.nanmin(background_raster) < 0 or np.nanmax(background_raster) > 1:
+            background_raster = rvt.blend_func.scale_0_to_1(background_raster)
+
         top_raster = rvt.blend_func.blend_images(blend_mode=self.blend_mode, active=top_raster,
                                                  background=background_raster)
         rendered_image = rvt.blend_func.render_images(active=top_raster, background=background_raster,
@@ -105,10 +110,11 @@ class RVTBlend:
         return pixelBlocks
 
     def prepare(self, blend_mode="normal", opacity=100):
+        opacity = int(opacity)
         self.blend_mode = blend_mode
         if opacity > 100:
             self.opacity = 100
-        elif opacity < 100:
+        elif opacity < 0:
             self.opacity = 0
         else:
-            self.opacity = int(opacity)
+            self.opacity = opacity
