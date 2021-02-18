@@ -80,7 +80,7 @@ class RVTMsrm:
             'inputMask': False,
             'resampling': False,
             'padding': self.padding,
-            'resamplingType': 4
+            'resamplingType': 1
         }
 
     def updateRasterInfo(self, **kwargs):

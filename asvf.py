@@ -99,7 +99,8 @@ class RVTASvf:
             'invalidateProperties': 2 | 4 | 8,
             'inputMask': False,
             'resampling': False,
-            'padding': self.padding
+            'padding': self.padding,
+            'resamplingType': 1
         }
 
     def updateRasterInfo(self, **kwargs):

@@ -90,7 +90,7 @@ class RVTNormalize:
             'inputMask': False,
             'resampling': False,
             'padding': 0,
-            'resamplingType': 4
+            'resamplingType': 1
         }
 
     def updateRasterInfo(self, **kwargs):
