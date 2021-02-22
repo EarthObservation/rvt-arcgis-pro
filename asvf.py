@@ -22,6 +22,7 @@ COPYRIGHT:
 
 import numpy as np
 import rvt.vis
+import rvt.blend_func
 
 
 class RVTASvf:
@@ -34,7 +35,12 @@ class RVTASvf:
         self.noise = "0-don't remove"  # in prepare changed to int
         self.level = "1-low"  # in prepare changed to int
         self.direction = 315.
-        self.padding = int(self.max_rad/2)
+        self.padding = int(self.max_rad / 2)
+        # 8bit (bytscale) parameters
+        self.calc_8_bit = False
+        self.mode_bytscl = "percent"
+        self.min_bytscl = 2
+        self.max_bytscl = 2
 
     def getParameterInfo(self):
         return [
@@ -45,6 +51,14 @@ class RVTASvf:
                 'required': True,
                 'displayName': "Input Raster",
                 'description': "Input raster for which to create the sky-view factor map."
+            },
+            {
+                'name': 'calc_8_bit',
+                'dataType': 'boolean',
+                'value': self.calc_8_bit,
+                'required': False,
+                'displayName': "Calculate 8-bit",
+                'description': "If True it returns 8-bit raster (0-255)."
             },
             {
                 'name': 'nr_directions',
@@ -92,7 +106,8 @@ class RVTASvf:
 
     def getConfiguration(self, **scalars):
         self.prepare(nr_directions=scalars.get('nr_directions'), max_rad=scalars.get("max_rad"),
-                     noise=scalars.get("noise_remove"), level=scalars.get("level"), direction=scalars.get("direction"))
+                     noise=scalars.get("noise_remove"), level=scalars.get("level"), direction=scalars.get("direction"),
+                     calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4 | 8,
@@ -107,7 +122,10 @@ class RVTASvf:
         kwargs['output_info']['bandCount'] = 1
         r = kwargs['raster_info']
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'f4'
+        if not self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'f4'
+        else:
+            kwargs['output_info']['pixelType'] = 'u1'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
         return kwargs
@@ -128,13 +146,20 @@ class RVTASvf:
                                             no_data=no_data, fill_no_data=False,
                                             keep_original_no_data=False)
         asvf = dict_asvf["asvf"][self.padding:-self.padding, self.padding:-self.padding]  # remove padding
+        if self.calc_8_bit:
+            asvf = rvt.blend_func.normalize_image(visualization="anisotropic sky-view factor", image=asvf,
+                                                  min_norm=self.min_bytscl, max_norm=self.max_bytscl,
+                                                  normalization=self.mode_bytscl)
+            asvf = rvt.vis.byte_scale(data=asvf, no_data=no_data)
+
         pixelBlocks['output_pixels'] = asvf.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, nr_directions=16, max_rad=10, noise="0", direction=315, level="1"):
+    def prepare(self, nr_directions=16, max_rad=10, noise="0", direction=315, level="1", calc_8_bit=False):
         self.nr_directions = int(nr_directions)
         self.max_rad = int(max_rad)
         self.noise = int(noise[0])
         self.direction = int(direction)
         self.level = int(level[0])
-        self.padding = int(max_rad/2)
+        self.calc_8_bit = bool(calc_8_bit)
+        self.padding = int(max_rad / 2)

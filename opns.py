@@ -20,6 +20,7 @@ Copyright:
 
 import numpy as np
 import rvt.vis
+import rvt.blend_func
 
 
 class RVTOpenness:
@@ -32,6 +33,11 @@ class RVTOpenness:
         self.noise = "0-don't remove"
         self.pos_neg = "Positive"
         self.padding = int(self.max_rad/2)
+        # 8bit (bytscale) parameters
+        self.calc_8_bit = False
+        self.mode_bytscl = "value"
+        self.min_bytscl = 60
+        self.max_bytscl = 95
 
     def getParameterInfo(self):
         return [
@@ -42,6 +48,14 @@ class RVTOpenness:
                 'required': True,
                 'displayName': "Input Raster",
                 'description': "Input raster for which to create the sky-view factor map."
+            },
+            {
+                'name': 'calc_8_bit',
+                'dataType': 'boolean',
+                'value': self.calc_8_bit,
+                'required': False,
+                'displayName': "Calculate 8-bit",
+                'description': "If True it returns 8-bit raster (0-255)."
             },
             {
                 'name': 'nr_directions',
@@ -82,7 +96,8 @@ class RVTOpenness:
 
     def getConfiguration(self, **scalars):
         self.prepare(nr_directions=scalars.get('nr_directions'), max_rad=scalars.get("max_rad"),
-                     noise=scalars.get("noise_remove"), pos_neg=scalars.get("pos_neg"))
+                     noise=scalars.get("noise_remove"), pos_neg=scalars.get("pos_neg"),
+                     calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -97,7 +112,10 @@ class RVTOpenness:
         kwargs['output_info']['bandCount'] = 1
         r = kwargs['raster_info']
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'f4'
+        if not self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'f4'
+        else:
+            kwargs['output_info']['pixelType'] = 'u1'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
         return kwargs
@@ -119,13 +137,22 @@ class RVTOpenness:
                                             svf_noise=self.noise, no_data=no_data, fill_no_data=False,
                                             keep_original_no_data=False)
         opns = dict_opns["opns"][self.padding:-self.padding, self.padding:-self.padding]
+        if self.calc_8_bit:
+            visualization = "openness - positive"
+            if self.pos_neg == "Negative":
+                visualization = "openness - negative"
+            opns = rvt.blend_func.normalize_image(visualization=visualization, image=opns,
+                                                  min_norm=self.min_bytscl, max_norm=self.max_bytscl,
+                                                  normalization=self.mode_bytscl)
+            opns = rvt.vis.byte_scale(data=opns, no_data=no_data)
 
         pixelBlocks['output_pixels'] = opns.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, nr_directions=16, max_rad=10, noise="0", pos_neg="Positive"):
+    def prepare(self, nr_directions=16, max_rad=10, noise="0", pos_neg="Positive", calc_8_bit=False):
         self.nr_directions = int(nr_directions)
         self.max_rad = int(max_rad)
         self.noise = int(noise[0])
         self.pos_neg = pos_neg
         self.padding = int(max_rad/2)
+        self.calc_8_bit = calc_8_bit

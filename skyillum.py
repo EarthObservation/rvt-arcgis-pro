@@ -20,6 +20,7 @@ Copyright:
 
 import numpy as np
 import rvt.vis
+import rvt.blend_func
 
 
 class RVTSkyIllum:
@@ -34,6 +35,11 @@ class RVTSkyIllum:
         self.shadow_az = 315.
         self.shadow_el = 35.
         self.padding = 10
+        # 8bit (bytscale) parameters
+        self.calc_8_bit = False
+        self.mode_bytscl = "percent"
+        self.min_bytscl = 0.25
+        self.max_bytscl = 0
 
     def getParameterInfo(self):
         return [
@@ -44,6 +50,14 @@ class RVTSkyIllum:
                 'required': True,
                 'displayName': "Input Raster",
                 'description': "Input raster for which to create the Sky illumination map."
+            },
+            {
+                'name': 'calc_8_bit',
+                'dataType': 'boolean',
+                'value': self.calc_8_bit,
+                'required': False,
+                'displayName': "Calculate 8-bit",
+                'description': "If True it returns 8-bit raster (0-255)."
             },
             {
                 'name': 'sky_model',
@@ -99,7 +113,8 @@ class RVTSkyIllum:
     def getConfiguration(self, **scalars):
         self.prepare(sky_model=scalars.get('sky_model'), compute_shadow=scalars.get("compute_shadow"),
                      max_fine_radius=scalars.get("max_fine_radius"), num_directions=scalars.get("num_directions"),
-                     shadow_az=scalars.get("shadow_az"), shadow_el=scalars.get("shadow_el"))
+                     shadow_az=scalars.get("shadow_az"), shadow_el=scalars.get("shadow_el"),
+                     calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -114,7 +129,10 @@ class RVTSkyIllum:
         kwargs['output_info']['bandCount'] = 1
         r = kwargs['raster_info']
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'f4'
+        if not self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'f4'
+        else:
+            kwargs['output_info']['pixelType'] = 'u1'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
         return kwargs
@@ -135,12 +153,17 @@ class RVTSkyIllum:
                                              shadow_el=self.shadow_el, no_data=no_data, fill_no_data=False,
                                              keep_original_no_data=False)
         sky_illum = sky_illum[self.padding:-self.padding, self.padding:-self.padding]  # remove padding
+        if self.calc_8_bit:
+            sky_illum = rvt.blend_func.normalize_image(visualization="sky illumination", image=sky_illum,
+                                                       min_norm=self.min_bytscl, max_norm=self.max_bytscl,
+                                                       normalization=self.mode_bytscl)
+            sky_illum = rvt.vis.byte_scale(data=sky_illum, no_data=no_data)
 
         pixelBlocks['output_pixels'] = sky_illum.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
     def prepare(self, sky_model="overcast", compute_shadow=True, max_fine_radius=100, num_directions=32, shadow_az=315,
-                shadow_el=35):
+                shadow_el=35, calc_8_bit=False):
         self.sky_model = str(sky_model)
         self.compute_shadow = bool(compute_shadow)
         self.max_fine_radius = int(max_fine_radius)
@@ -148,6 +171,7 @@ class RVTSkyIllum:
         self.shadow_az = int(shadow_az)
         self.shadow_el = int(shadow_el)
         self.padding = 10
+        self.calc_8_bit = calc_8_bit
 
 
 def change_0_pad_to_edge_pad(dem, pad_width):

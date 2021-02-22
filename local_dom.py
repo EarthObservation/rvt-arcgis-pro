@@ -22,6 +22,7 @@ COPYRIGHT:
 
 import numpy as np
 import rvt.vis
+import rvt.blend_func
 
 
 class RVTLocalDominance:
@@ -34,7 +35,12 @@ class RVTLocalDominance:
         self.rad_inc = 1.
         self.anglr_res = 15.
         self.observer_h = 1.7
-        self.padding = int(self.max_rad/2)
+        self.padding = int(self.max_rad / 2)
+        # 8bit (bytscale) parameters
+        self.calc_8_bit = False
+        self.mode_bytscl = "value"
+        self.min_bytscl = 0.5
+        self.max_bytscl = 1.8
 
     def getParameterInfo(self):
         return [
@@ -45,6 +51,14 @@ class RVTLocalDominance:
                 'required': True,
                 'displayName': "Input Raster",
                 'description': "Input raster for which to create the local dominance map."
+            },
+            {
+                'name': 'calc_8_bit',
+                'dataType': 'boolean',
+                'value': self.calc_8_bit,
+                'required': False,
+                'displayName': "Calculate 8-bit",
+                'description': "If True it returns 8-bit raster (0-255)."
             },
             {
                 'name': 'min_rad',
@@ -92,7 +106,8 @@ class RVTLocalDominance:
 
     def getConfiguration(self, **scalars):
         self.prepare(min_rad=scalars.get('min_rad'), max_rad=scalars.get("max_rad"), rad_inc=scalars.get("rad_inc"),
-                     anglr_res=scalars.get("anglr_res"), observer_h=scalars.get("observer_h"))
+                     anglr_res=scalars.get("anglr_res"), observer_h=scalars.get("observer_h"),
+                     calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -107,7 +122,10 @@ class RVTLocalDominance:
         kwargs['output_info']['bandCount'] = 1
         r = kwargs['raster_info']
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'f4'
+        if not self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'f4'
+        else:
+            kwargs['output_info']['pixelType'] = 'u1'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
         return kwargs
@@ -126,14 +144,20 @@ class RVTLocalDominance:
                                                   observer_height=self.observer_h, no_data=no_data,
                                                   fill_no_data=False,
                                                   keep_original_no_data=False)
-        local_dominance = local_dominance[self.padding:-self.padding, self.padding:-self.padding ]  # remove padding
+        local_dominance = local_dominance[self.padding:-self.padding, self.padding:-self.padding]  # remove padding
+        if self.calc_8_bit:
+            local_dominance = rvt.blend_func.normalize_image(visualization="local dominance", image=local_dominance,
+                                                             min_norm=self.min_bytscl, max_norm=self.max_bytscl,
+                                                             normalization=self.mode_bytscl)
+            local_dominance = rvt.vis.byte_scale(data=local_dominance, no_data=no_data)
         pixelBlocks['output_pixels'] = local_dominance.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, min_rad=10, max_rad=20, rad_inc=1, anglr_res=15, observer_h=1.7):
+    def prepare(self, min_rad=10, max_rad=20, rad_inc=1, anglr_res=15, observer_h=1.7, calc_8_bit=False):
         self.min_rad = int(min_rad)
         self.max_rad = int(max_rad)
         self.rad_inc = int(rad_inc)
         self.anglr_res = int(anglr_res)
         self.observer_h = float(observer_h)
-        self.padding = int(max_rad/2)
+        self.padding = int(max_rad / 2)
+        self.calc_8_bit = calc_8_bit

@@ -20,6 +20,7 @@ Copyright:
 
 import numpy as np
 import rvt.vis
+import rvt.blend_func
 
 
 class RVTMultiHillshade:
@@ -31,6 +32,10 @@ class RVTMultiHillshade:
         self.elevation = 35.
         self.calc_8_bit = False
         self.padding = 1
+        # 8bit (bytscale) parameters
+        self.mode_bytscl = "value"
+        self.min_bytscl = 0
+        self.max_bytscl = 1
 
     def getParameterInfo(self):
         return [
@@ -84,13 +89,15 @@ class RVTMultiHillshade:
 
     def updateRasterInfo(self, **kwargs):
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
-        kwargs['output_info']['statistics'] = int(self.nr_directions) * ({'minimum': -1, 'maximum': 1},)
         if self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'u1'
             kwargs['output_info']['bandCount'] = 3
+            kwargs['output_info']['statistics'] = int(self.nr_directions) * ({'minimum': 0, 'maximum': 255},)
         else:
+            kwargs['output_info']['pixelType'] = 'f4'
             kwargs['output_info']['bandCount'] = int(self.nr_directions)
+            kwargs['output_info']['statistics'] = int(self.nr_directions) * ({'minimum': -1, 'maximum': 1},)
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
@@ -121,6 +128,27 @@ class RVTMultiHillshade:
                                             slope=dict_slp_asp["slope"], aspect=dict_slp_asp["aspect"],
                                             no_data=no_data, fill_no_data=False,
                                             keep_original_no_data=False)
+            if self.mode_bytscl.lower() == "value":
+                hillshade_r = rvt.blend_func.normalize_lin(image=hillshade_r, minimum=self.min_bytscl,
+                                                           maximum=self.max_bytscl)
+                hillshade_r = rvt.vis.byte_scale(data=hillshade_r, no_data=no_data)
+                hillshade_g = rvt.blend_func.normalize_lin(image=hillshade_g, minimum=self.min_bytscl,
+                                                           maximum=self.max_bytscl)
+                hillshade_g = rvt.vis.byte_scale(data=hillshade_g, no_data=no_data)
+                hillshade_b = rvt.blend_func.normalize_lin(image=hillshade_b, minimum=self.min_bytscl,
+                                                           maximum=self.max_bytscl)
+                hillshade_b = rvt.vis.byte_scale(data=hillshade_b, no_data=no_data)
+            else:  # self.mode_bytscl == "perc" or "percent"
+                hillshade_r = rvt.blend_func.normalize_perc(image=hillshade_r, minimum=self.min_bytscl,
+                                                            maximum=self.max_bytscl)
+                hillshade_r = rvt.vis.byte_scale(data=hillshade_r, no_data=no_data)
+                hillshade_g = rvt.blend_func.normalize_perc(image=hillshade_g, minimum=self.min_bytscl,
+                                                            maximum=self.max_bytscl)
+                hillshade_g = rvt.vis.byte_scale(data=hillshade_g, no_data=no_data)
+                hillshade_b = rvt.blend_func.normalize_perc(image=hillshade_b, minimum=self.min_bytscl,
+                                                            maximum=self.max_bytscl)
+                hillshade_b = rvt.vis.byte_scale(data=hillshade_b, no_data=no_data)
+
             hillshade_rgb = np.array([hillshade_r, hillshade_g, hillshade_b])
             hillshade_rgb = hillshade_rgb[:, self.padding:-self.padding, self.padding:-self.padding]  # remove padding
             pixelBlocks['output_pixels'] = hillshade_rgb.astype(props['pixelType'], copy=False)

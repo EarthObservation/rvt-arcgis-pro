@@ -20,6 +20,7 @@ Copyright:
 
 import numpy as np
 import rvt.vis
+import rvt.blend_func
 
 
 class RVTMsrm:
@@ -27,10 +28,15 @@ class RVTMsrm:
         self.name = "RVT msrm"
         self.description = "Calculates Multi-scale relief model."
         # default values
-        self.feature_min = 1.
-        self.feature_max = 5.
-        self.scaling_factor = 3.
+        self.feature_min = 0.
+        self.feature_max = 20.
+        self.scaling_factor = 2.
         self.padding = 1
+        # 8bit (bytscale) parameters
+        self.calc_8_bit = False
+        self.mode_bytscl = "percent"
+        self.min_bytscl = 2
+        self.max_bytscl = 2
 
     def getParameterInfo(self):
         return [
@@ -41,6 +47,14 @@ class RVTMsrm:
                 'required': True,
                 'displayName': "Input Raster",
                 'description': "Input raster for which to create the Multi-scale relief model."
+            },
+            {
+                'name': 'calc_8_bit',
+                'dataType': 'boolean',
+                'value': self.calc_8_bit,
+                'required': False,
+                'displayName': "Calculate 8-bit",
+                'description': "If True it returns 8-bit raster (0-255)."
             },
             {
                 'name': 'feature_min',
@@ -72,7 +86,7 @@ class RVTMsrm:
 
     def getConfiguration(self, **scalars):
         self.prepare(feature_min=scalars.get("feature_min"), feature_max=scalars.get("feature_max"),
-                     scaling_factor=scalars.get("scaling_factor"))
+                     scaling_factor=scalars.get("scaling_factor"), calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -87,9 +101,12 @@ class RVTMsrm:
         kwargs['output_info']['bandCount'] = 1
         r = kwargs['raster_info']
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'f4'
+        if not self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'f4'
+        else:
+            kwargs['output_info']['pixelType'] = 'u1'
         kwargs['output_info']['histogram'] = ()
-        kwargs['output_info']['statistics'] = ({'minimum': -1.0, 'maximum': 1.0}, )
+        kwargs['output_info']['statistics'] = ()
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
@@ -106,15 +123,19 @@ class RVTMsrm:
                             feature_max=self.feature_max, scaling_factor=self.scaling_factor,
                             no_data=no_data, fill_no_data=False, keep_original_no_data=False)
         msrm = msrm[self.padding:-self.padding, self.padding:-self.padding]
+        if self.calc_8_bit:
+            msrm = rvt.blend_func.normalize_image(visualization="multi-scale relief model", image=msrm,
+                                                  min_norm=self.min_bytscl, max_norm=self.max_bytscl,
+                                                  normalization=self.mode_bytscl)
+            msrm = rvt.vis.byte_scale(data=msrm, no_data=no_data)
         pixelBlocks['output_pixels'] = msrm.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, feature_min=1, feature_max=5, scaling_factor=3):
+    def prepare(self, feature_min=1, feature_max=5, scaling_factor=3, calc_8_bit=False):
         self.feature_min = float(feature_min)
         self.feature_max = float(feature_max)
         self.scaling_factor = int(scaling_factor)
         resolution = 1  # we can't get resolution in getConfiguration so we will set it to 1
         n = int(np.ceil(((self.feature_max - resolution) / (2 * resolution)) ** (1 / self.scaling_factor)))
         self.padding = n ** self.scaling_factor
-
-
+        self.calc_8_bit = calc_8_bit

@@ -20,6 +20,7 @@ Copyright:
 
 import numpy as np
 import rvt.vis
+import rvt.blend_func
 
 
 class RVTSlope:
@@ -29,6 +30,11 @@ class RVTSlope:
         # default values
         self.output_unit = "degree"
         self.padding = 1
+        # 8bit (bytscale) parameters
+        self.calc_8_bit = False
+        self.mode_bytscl = "value"
+        self.min_bytscl = 0
+        self.max_bytscl = 51
 
     def getParameterInfo(self):
         return [
@@ -39,6 +45,14 @@ class RVTSlope:
                 'required': True,
                 'displayName': "Input Raster",
                 'description': "Input raster for which to create the slope map."
+            },
+            {
+                'name': 'calc_8_bit',
+                'dataType': 'boolean',
+                'value': self.calc_8_bit,
+                'required': False,
+                'displayName': "Calculate 8-bit",
+                'description': "If True it returns 8-bit raster (0-255)."
             },
             {
                 'name': 'output_unit',
@@ -52,7 +66,7 @@ class RVTSlope:
         ]
 
     def getConfiguration(self, **scalars):
-        self.prepare(output_unit=scalars.get("output_unit"))
+        self.prepare(output_unit=scalars.get("output_unit"), calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -67,7 +81,10 @@ class RVTSlope:
         kwargs['output_info']['bandCount'] = 1
         r = kwargs['raster_info']
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'f4'
+        if not self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'f4'
+        else:
+            kwargs['output_info']['pixelType'] = 'u1'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
         return kwargs
@@ -87,9 +104,14 @@ class RVTSlope:
                                             fill_no_data=False,
                                             keep_original_no_data=False)
         slope = dict_slp_asp["slope"][self.padding:-self.padding, self.padding:-self.padding]
+        if self.calc_8_bit:
+            slope = rvt.blend_func.normalize_image(visualization="slope gradient", image=slope,
+                                                   min_norm=self.min_bytscl, max_norm=self.max_bytscl,
+                                                   normalization=self.mode_bytscl)
+            slope = rvt.vis.byte_scale(data=slope, no_data=no_data)
         pixelBlocks['output_pixels'] = slope.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, output_unit=35):
+    def prepare(self, output_unit=35, calc_8_bit=False):
         self.output_unit = output_unit
-
+        self.calc_8_bit = calc_8_bit
