@@ -20,6 +20,7 @@ Copyright:
 
 import numpy as np
 import rvt.blend_func
+import rvt.vis
 
 
 class RVTBlend:
@@ -29,7 +30,7 @@ class RVTBlend:
         # default values
         self.blend_mode = "normal"
         self.opacity = 100.
-
+        self.calc_8_bit = False
 
     def getParameterInfo(self):
         return [
@@ -48,6 +49,14 @@ class RVTBlend:
                 'required': True,
                 'displayName': "Input background Raster",
                 'description': "Input background raster which we blend and render with top raster."
+            },
+            {
+                'name': 'calc_8_bit',
+                'dataType': 'boolean',
+                'value': self.calc_8_bit,
+                'required': False,
+                'displayName': "Calculate 8-bit",
+                'description': "If True it returns 8-bit raster (0-255)."
             },
             {
                 'name': 'blend_mode',
@@ -69,7 +78,8 @@ class RVTBlend:
         ]
 
     def getConfiguration(self, **scalars):
-        self.prepare(blend_mode=scalars.get('blend_mode'), opacity=scalars.get("opacity"))
+        self.prepare(blend_mode=scalars.get('blend_mode'), opacity=scalars.get("opacity"),
+                     calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 4,
@@ -84,9 +94,14 @@ class RVTBlend:
         kwargs['output_info']['bandCount'] = 1
         # r = kwargs['raster_info']
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'f4'
+        if not self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'f4'
+            kwargs['output_info']['statistics'] = ({'minimum': 0.0, 'maximum': 1.0},)
+        else:
+            kwargs['output_info']['pixelType'] = 'u1'
+            kwargs['output_info']['statistics'] = ()
         kwargs['output_info']['histogram'] = ()
-        kwargs['output_info']['statistics'] = ({'minimum': 0.0, 'maximum': 1.0}, )
+
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
@@ -105,13 +120,16 @@ class RVTBlend:
                                                  background=background_raster)
         rendered_image = rvt.blend_func.render_images(active=top_raster, background=background_raster,
                                                       opacity=self.opacity)
+        if self.calc_8_bit:
+            rendered_image = rvt.vis.byte_scale(data=rendered_image)
 
         pixelBlocks['output_pixels'] = rendered_image.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
-    def prepare(self, blend_mode="normal", opacity=100):
+    def prepare(self, blend_mode="normal", opacity=100, calc_8_bit=False):
         opacity = int(opacity)
         self.blend_mode = blend_mode
+        self.calc_8_bit = calc_8_bit
         if opacity > 100:
             self.opacity = 100
         elif opacity < 0:

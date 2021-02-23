@@ -10,6 +10,7 @@
 		<Names xsi:type='typens:ArrayOfString' id='ID3'>
 			<String>top_raster</String>
 			<String>background_raster</String>
+			<String>calc_8_bit</String>
 			<String>blend_mode</String>
 			<String>opacity</String>
 			<String>PythonModule</String>
@@ -27,6 +28,12 @@
 				<Description/>
 				<Value/>
 				<IsDataset>true</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
+				<Name>calc_8_bit</Name>
+				<Description/>
+				<Value xsi:type='xs:int'>0</Value>
+				<IsDataset>false</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID7'>
 				<Name>blend_mode</Name>
