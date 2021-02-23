@@ -1,0 +1,63 @@
+<RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/2.6.0'>
+	<Name>To 8bit</Name>
+	<Description>Converts raster values 0-255 (Byte scale).</Description>
+	<Function xsi:type='typens:PythonAdapterFunction' id='ID1'>
+		<Name>RVT Convert to 8bit</Name>
+		<Description>Convert image values 0-255 (Byte scale).</Description>
+		<PixelType>UNKNOWN</PixelType>
+	</Function>
+	<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID2'>
+		<Names xsi:type='typens:ArrayOfString' id='ID3'>
+			<String>raster</String>
+			<String>PythonModule</String>
+			<String>ClassName</String>
+		</Names>
+		<Values xsi:type='typens:ArrayOfAnyType' id='ID4'>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID5'>
+				<Name>Raster</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\convert_to_8bit.py</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
+				<Name>ClassName</Name>
+				<Description/>
+				<Value xsi:type='xs:string'>RVTto8Bit</Value>
+				<IsDataset>false</IsDataset>
+			</AnyType>
+		</Values>
+	</Arguments>
+	<Aliases xsi:type='typens:ArrayOfString' id='ID7'>
+		<String>__tans__(raster)</String>
+	</Aliases>
+	<Help/>
+	<Type>0</Type>
+	<Thumbnail xsi:type='xs:string'/>
+	<Definition/>
+	<Group/>
+	<Tag/>
+	<ThumbnailEx/>
+	<Properties xsi:type='typens:PropertySet' id='ID8'>
+		<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID9'>
+			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID10'>
+				<Key>MatchVariable</Key>
+				<Value xsi:type='typens:RasterFunctionVariable' id='ID11'>
+					<Name>MatchVariable</Name>
+					<Description/>
+					<Value xsi:type='xs:boolean'>true</Value>
+					<IsDataset>false</IsDataset>
+				</Value>
+			</PropertySetProperty>
+			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID12'>
+				<Key>UnionDimension</Key>
+				<Value xsi:type='typens:RasterFunctionVariable' id='ID13'>
+					<Name>UnionDimension</Name>
+					<Description/>
+					<Value xsi:type='xs:boolean'>false</Value>
+					<IsDataset>false</IsDataset>
+				</Value>
+			</PropertySetProperty>
+		</PropertyArray>
+	</Properties>
+</RasterFunctionTemplate>
