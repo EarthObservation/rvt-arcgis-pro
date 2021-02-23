@@ -122,6 +122,6 @@ class RVTHillshade:
         return pixelBlocks
 
     def prepare(self, azimuth=315, elevation=35, calc_8_bit=False):
-        self.azimuth = azimuth
-        self.elevation = elevation
+        self.azimuth = float(azimuth)
+        self.elevation = float(elevation)
         self.calc_8_bit = calc_8_bit

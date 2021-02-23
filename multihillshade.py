@@ -164,5 +164,5 @@ class RVTMultiHillshade:
 
     def prepare(self, nr_directions=16, elevation=35, calc_8_bit=False):
         self.nr_directions = int(nr_directions)
-        self.elevation = elevation
+        self.elevation = float(elevation)
         self.calc_8_bit = calc_8_bit

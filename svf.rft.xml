@@ -9,6 +9,7 @@
 	<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID2'>
 		<Names xsi:type='typens:ArrayOfString' id='ID3'>
 			<String>raster</String>
+			<String>calc_8_bit</String>
 			<String>nr_directions</String>
 			<String>max_rad</String>
 			<String>noise_remove</String>
@@ -21,6 +22,12 @@
 				<Description/>
 				<Value/>
 				<IsDataset>true</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
+				<Name>calc_8_bit</Name>
+				<Description/>
+				<Value xsi:type='xs:int'>0</Value>
+				<IsDataset>false</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
 				<Name>nr_directions</Name>
