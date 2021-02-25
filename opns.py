@@ -149,6 +149,20 @@ class RVTOpenness:
         pixelBlocks['output_pixels'] = opns.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name_pos_neg = "NEG"
+            if self.pos_neg == "Positive":
+                 name_pos_neg = "POS"
+            name = 'OPEN-{}_R{}_D{}'.format(name_pos_neg, self.max_rad, self.nr_directions)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, nr_directions=16, max_rad=10, noise="0", pos_neg="Positive", calc_8_bit=False):
         self.nr_directions = int(nr_directions)
         self.max_rad = int(max_rad)

@@ -106,6 +106,17 @@ class RVTSlrm:
         pixelBlocks['output_pixels'] = slrm.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'SLRM_R{}'.format(self.radius_cell)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, radius_cell=20, calc_8_bit=False):
         self.radius_cell = int(radius_cell)
         self.padding = int(radius_cell)

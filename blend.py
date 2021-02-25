@@ -126,6 +126,17 @@ class RVTBlend:
         pixelBlocks['output_pixels'] = rendered_image.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'BLEND_M{}_O{}'.format(self.blend_mode, self.opacity)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, blend_mode="normal", opacity=100, calc_8_bit=False):
         opacity = int(opacity)
         self.blend_mode = blend_mode

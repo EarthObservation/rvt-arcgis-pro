@@ -155,6 +155,22 @@ class RVTASvf:
         pixelBlocks['output_pixels'] = asvf.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = "SVF-A_R{}_D{}_A{}".format(self.max_rad, self.nr_directions, self.direction)
+            if self.level == 1:
+                name += "_ALlow"
+            elif self.level == 2:
+                name += "_ALstrong"
+
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, nr_directions=16, max_rad=10, noise="0", direction=315, level="1", calc_8_bit=False):
         self.nr_directions = int(nr_directions)
         self.max_rad = int(max_rad)

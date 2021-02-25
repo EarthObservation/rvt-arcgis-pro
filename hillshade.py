@@ -121,6 +121,17 @@ class RVTHillshade:
         pixelBlocks['output_pixels'] = hillshade.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'HS_A{}_H{}'.format(self.azimuth, self.elevation)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, azimuth=315, elevation=35, calc_8_bit=False):
         self.azimuth = float(azimuth)
         self.elevation = float(elevation)

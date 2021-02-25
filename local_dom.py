@@ -153,6 +153,19 @@ class RVTLocalDominance:
         pixelBlocks['output_pixels'] = local_dominance.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'LD_R_M{}-{}_DI{}_A{}_OH{}'.format(self.min_rad, self.max_rad,
+                                                      self.rad_inc, self.anglr_res,
+                                                      self.observer_h)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, min_rad=10, max_rad=20, rad_inc=1, anglr_res=15, observer_h=1.7, calc_8_bit=False):
         self.min_rad = int(min_rad)
         self.max_rad = int(max_rad)

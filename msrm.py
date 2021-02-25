@@ -131,6 +131,17 @@ class RVTMsrm:
         pixelBlocks['output_pixels'] = msrm.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'MSRM_F_M{}-{}_S{}'.format(self.feature_min, self.feature_max, self.scaling_factor)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, feature_min=1, feature_max=5, scaling_factor=3, calc_8_bit=False):
         self.feature_min = float(feature_min)
         self.feature_max = float(feature_max)

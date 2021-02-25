@@ -162,6 +162,17 @@ class RVTSkyIllum:
         pixelBlocks['output_pixels'] = sky_illum.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'SIM_{}_D{}_{}px'.format(self.sky_model, self.num_directions, self.max_fine_radius)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, sky_model="overcast", compute_shadow=True, max_fine_radius=100, num_directions=32, shadow_az=315,
                 shadow_el=35, calc_8_bit=False):
         self.sky_model = str(sky_model)

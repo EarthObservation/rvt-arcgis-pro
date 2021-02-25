@@ -162,6 +162,30 @@ class RVTMultiHillshade:
             pixelBlocks['output_pixels'] = multihillshade.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'MULTI-HS_D{}_H{}'.format(self.nr_directions, self.elevation)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+
+        if self.calc_8_bit:
+            if bandIndex == 0:
+                keyMetadata['bandname'] = 'HS_A{}_H{}_8bit'.format(315, self.elevation)
+            elif bandIndex == 1:
+                keyMetadata['bandname'] = 'HS_A{}_H{}_8bit'.format(22.5, self.elevation)
+            elif bandIndex == 2:
+                keyMetadata['bandname'] = 'HS_A{}_H{}_8bit'.format(90, self.elevation)
+        else:
+            for i_dir in range(self.nr_directions):
+                if bandIndex == i_dir:
+                    azimuth = (360 / self.nr_directions) * i_dir
+                    keyMetadata['bandname'] = 'HS_A{}_H{}'.format(azimuth, self.elevation)
+        return keyMetadata
+
     def prepare(self, nr_directions=16, elevation=35, calc_8_bit=False):
         self.nr_directions = int(nr_directions)
         self.elevation = float(elevation)

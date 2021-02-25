@@ -115,6 +115,13 @@ class RVTNormalize:
         pixelBlocks['output_pixels'] = normalized_raster.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'NORM_M{}-{}_N{}'.format(self.minimum, self.maximum, self.normalization)
+            keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, visualization="Other", minimum=0, maximum=1, normalization="value"):
         self.visualization = visualization
         self.minimum = float(minimum)

@@ -71,5 +71,11 @@ class RVTto8Bit:
         pixelBlocks['output_pixels'] = bytescl_raster.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            keyMetadata['datatype'] = 'Processed'
+            keyMetadata['productname'] = 'RVT 8-bit'
+        return keyMetadata
+
     def prepare(self):
         pass

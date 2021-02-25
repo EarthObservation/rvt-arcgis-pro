@@ -112,6 +112,17 @@ class RVTSlope:
         pixelBlocks['output_pixels'] = slope.astype(props['pixelType'], copy=False)
         return pixelBlocks
 
+    def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
+        if bandIndex == -1:
+            name = 'SLOPE_{}'.format(self.output_unit)
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
+            keyMetadata['productname'] = 'RVT {}'.format(name)
+        return keyMetadata
+
     def prepare(self, output_unit=35, calc_8_bit=False):
         self.output_unit = output_unit
         self.calc_8_bit = calc_8_bit
