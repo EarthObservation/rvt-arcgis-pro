@@ -21,9 +21,7 @@ Under _Raster functions_ pane you will have tab _Custom_ where will be _rvt-arcg
 
 ## Documentation
 
-Documentation of the RVT ArcGIS Pro python raster functions is available at [Relief Visualization Toolbox ArcGIS Pro Raster Functions](https://rvt-arcgis-pro.readthedocs.io/).
-
-RVT Python documentation is available at [Relief Visualization Toolbox in Python](https://rvt-py.readthedocs.io).
+Documentation of the package and its usage is available at [Relief Visualization Toolbox in Python documentation](https://rvt-py.readthedocs.io/).
 
 ## References
 
