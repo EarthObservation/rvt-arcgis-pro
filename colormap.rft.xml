@@ -1,0 +1,88 @@
+<RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/2.6.0'>
+	<Name>Colormap</Name>
+	<Description>Aplies colormap to normalized grayscale image.</Description>
+	<Function xsi:type='typens:PythonAdapterFunction' id='ID1'>
+		<Name>RVT colormap</Name>
+		<Description>Apply colormap on grayscale image.</Description>
+		<PixelType>UNKNOWN</PixelType>
+	</Function>
+	<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID2'>
+		<Names xsi:type='typens:ArrayOfString' id='ID3'>
+			<String>raster</String>
+			<String>colormap</String>
+			<String>min_colormap_cut</String>
+			<String>max_colormap_cut</String>
+			<String>calc_8_bit</String>
+			<String>PythonModule</String>
+			<String>ClassName</String>
+		</Names>
+		<Values xsi:type='typens:ArrayOfAnyType' id='ID4'>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID5'>
+				<Name>Raster</Name>
+				<Description/>
+				<Value/>
+				<IsDataset>true</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
+				<Name>colormap</Name>
+				<Description/>
+				<Value xsi:type='xs:string'>Reds_r</Value>
+				<IsDataset>false</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID7'>
+				<Name>min_colormap_cut</Name>
+				<Description/>
+				<Value xsi:type='xs:double'>0</Value>
+				<IsDataset>false</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID8'>
+				<Name>max_colormap_cut</Name>
+				<Description/>
+				<Value xsi:type='xs:double'>1</Value>
+				<IsDataset>false</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID9'>
+				<Name>calc_8_bit</Name>
+				<Description/>
+				<Value xsi:type='xs:int'>0</Value>
+				<IsDataset>false</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\colormap.py</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID10'>
+				<Name>ClassName</Name>
+				<Description/>
+				<Value xsi:type='xs:string'>RVTColormap</Value>
+				<IsDataset>false</IsDataset>
+			</AnyType>
+		</Values>
+	</Arguments>
+	<Help/>
+	<Type>0</Type>
+	<Thumbnail xsi:type='xs:string'/>
+	<Definition/>
+	<Group/>
+	<Tag/>
+	<ThumbnailEx/>
+	<Properties xsi:type='typens:PropertySet' id='ID11'>
+		<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID12'>
+			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID13'>
+				<Key>MatchVariable</Key>
+				<Value xsi:type='typens:RasterFunctionVariable' id='ID14'>
+					<Name>MatchVariable</Name>
+					<Description/>
+					<Value xsi:type='xs:boolean'>true</Value>
+					<IsDataset>false</IsDataset>
+				</Value>
+			</PropertySetProperty>
+			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID15'>
+				<Key>UnionDimension</Key>
+				<Value xsi:type='typens:RasterFunctionVariable' id='ID16'>
+					<Name>UnionDimension</Name>
+					<Description/>
+					<Value xsi:type='xs:boolean'>false</Value>
+					<IsDataset>false</IsDataset>
+				</Value>
+			</PropertySetProperty>
+		</PropertyArray>
+	</Properties>
+</RasterFunctionTemplate>

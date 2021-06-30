@@ -43,7 +43,7 @@ def byte_scale(data,
     Parameters
     ----------
     data : numpy.ndarray
-        Input data (visualization) as 2D numpy array.
+        Input data (visualization) as 2D or multi-D numpy array.
     c_min : int or float
         Scalar, Bias scaling of small values. Default is ``data.min()``.
     c_max : int or float
@@ -60,40 +60,59 @@ def byte_scale(data,
     img_array : uint8 numpy.ndarray
         The byte-scaled array.
     """
+    is_2d_arr = False
+    data_bands = data
+    if len(data.shape) == 2:
+        is_2d_arr = True
+        data_bands = np.array([data])
 
-    if high < low:
-        raise ValueError("`high` should be larger than `low`.")
+    c_min_orig = c_min
+    c_max_orig = c_max
 
-    if no_data is not None:  # change no data to np.nan
-        data[data == no_data] = np.nan
+    byte_data_bands = []
+    for i_band in data_bands:
+        data = i_band
+        c_min = c_min_orig
+        c_max = c_max_orig
+        if high < low:
+            raise ValueError("`high` should be larger than `low`.")
 
-    if c_min is None:
-        c_min = np.nanmin(data)
-    if c_max is None:
-        c_max = np.nanmax(data)
+        if no_data is not None:  # change no data to np.nan
+            data[data == no_data] = np.nan
 
-    c_scale = c_max - c_min
-    if c_scale < 0:
-        raise ValueError("`cmax` should be larger than `cmin`.")
-    elif c_scale == 0:
-        c_scale = 1
+        if c_min is None:
+            c_min = np.nanmin(data)
+        if c_max is None:
+            c_max = np.nanmax(data)
 
-    if data.dtype == np.uint8:
-        # TODO: the following line seems not good to  me - if cmin=0, then that pixel will get negative value
-        byte_data = (high + 1) * (data - c_min - 1) / (c_max - c_min)  # copied from IDL BYTSCL
+        c_scale = c_max - c_min
+        if c_scale < 0:
+            raise ValueError("`cmax` should be larger than `cmin`.")
+        elif c_scale == 0:
+            c_scale = 1
+
+        if data.dtype == np.uint8:
+            # TODO: the following line seems not good to  me - if cmin=0, then that pixel will get negative value
+            byte_data = (high + 1) * (data - c_min - 1) / (c_max - c_min)  # copied from IDL BYTSCL
+            byte_data[byte_data > high] = high
+            byte_data[byte_data < 0] = 0
+            byte_data[np.isnan(byte_data)] = 0  # change no_data to 0
+            return np.cast[np.uint8](byte_data) + np.cast[np.uint8](low)
+
+        # scale = float(high - low) / cscale  # old scipy fn
+        # byte_data = (data * 1.0 - cmin) * scale + 0.4999  # old scipy fn
+
+        byte_data = (high + 0.9999) * (data - c_min) / (c_max - c_min)  # copied from IDL BYTSCL
         byte_data[byte_data > high] = high
         byte_data[byte_data < 0] = 0
-        byte_data[np.isnan(byte_data)] = 0  # change no_data to 0
-        return np.cast[np.uint8](byte_data) + np.cast[np.uint8](low)
+        byte_data[np.isnan(byte_data)] = 255  # change no_data to 255
+        byte_data = np.cast[np.uint8](byte_data) + np.cast[np.uint8](low)
+        byte_data_bands.append(byte_data)
 
-    # scale = float(high - low) / cscale  # old scipy fn
-    # byte_data = (data * 1.0 - cmin) * scale + 0.4999  # old scipy fn
-
-    byte_data = (high + 0.9999) * (data - c_min) / (c_max - c_min)  # copied from IDL BYTSCL
-    byte_data[byte_data > high] = high
-    byte_data[byte_data < 0] = 0
-    byte_data[np.isnan(byte_data)] = 255  # change no_data to 255
-    return np.cast[np.uint8](byte_data) + np.cast[np.uint8](low)
+    if is_2d_arr:  # if only one band
+        return byte_data_bands[0]
+    else:  # multiple bands
+        return np.array(byte_data_bands)
 
 
 def slope_aspect(dem,
@@ -779,7 +798,7 @@ def sky_view_factor(dem,
         Compute SVF (True) or not (False).
     compute_opns : bool
         Compute OPENNESS (True) or not (False).
-    resolution : int
+    resolution : float
         Pixel resolution.
     svf_n_dir : int
         Number of directions.
@@ -1152,7 +1171,7 @@ def sky_illumination(dem,
     ----------
     dem : numpy.ndarray
         Input digital elevation model as 2D numpy array.
-    resolution : int
+    resolution : float
         DEM pixel size.
     sky_model : str
         Sky model, it can be 'overcast' or 'uniform'.
@@ -1403,7 +1422,7 @@ def shadow_horizon(dem,
     ----------
     dem : numpy.ndarray
         Input digital elevation model as 2D numpy array.
-    resolution : int
+    resolution : float
         DEM pixel size.
     shadow_az : int or float
         Shadow azimuth.
@@ -1466,7 +1485,7 @@ def msrm(dem,
     ----------
     dem : numpy.ndarray
         Input digital elevation model as 2D numpy array.
-    resolution : int
+    resolution : float
         DEM pixel size.
     feature_min: float
         Minimum size of the feature you want to detect in meters.
@@ -1659,8 +1678,8 @@ def max_elevation_deviation(dem, minimum_radius, maximum_radius, step):
 
 def mstp(dem,
          local_scale=(1, 10, 1),
-         meso_scale=(10, 100, 10),
-         broad_scale=(100, 1000, 100),
+         meso_scale=(10, 50, 5),
+         broad_scale=(50, 500, 50),
          lightness=1.2,
          ve_factor=1,
          no_data=None,

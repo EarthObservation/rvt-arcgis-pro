@@ -64,7 +64,7 @@ class RVTBlend:
                 'value': self.blend_mode,
                 'required': True,
                 'displayName': "Blend mode",
-                'domain': ('normal', 'multiply', 'overlay', 'luminosity', 'screen'),
+                'domain': ('normal', 'multiply', 'overlay', 'luminosity', 'screen', "soft_light"),
                 'description': "Blending mode for blending top and background raster together."
             },
             {
@@ -91,22 +91,28 @@ class RVTBlend:
         }
 
     def updateRasterInfo(self, **kwargs):
-        kwargs['output_info']['bandCount'] = 1
-        # r = kwargs['raster_info']
+        r1 = kwargs['top_raster_info']
+        r2 = kwargs['background_raster_info']
+        if int(r1['bandCount']) == 3 or int(r2['bandCount']) == 3:
+            kwargs['output_info']['bandCount'] = 3
+        else:
+            kwargs['output_info']['bandCount'] = 1
         kwargs['output_info']['noData'] = np.nan
         if not self.calc_8_bit:
             kwargs['output_info']['pixelType'] = 'f4'
-            kwargs['output_info']['statistics'] = ({'minimum': 0.0, 'maximum': 1.0},)
         else:
             kwargs['output_info']['pixelType'] = 'u1'
-            kwargs['output_info']['statistics'] = ()
+        kwargs['output_info']['statistics'] = ()
         kwargs['output_info']['histogram'] = ()
-
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
-        top_raster = np.array(pixelBlocks['top_raster_pixels'], dtype='f4', copy=False)[0]
-        background_raster = np.array(pixelBlocks['background_raster_pixels'], dtype='f4', copy=False)[0]
+        top_raster = np.array(pixelBlocks['top_raster_pixels'], dtype='f4', copy=False)
+        if top_raster.shape[0] == 1:
+            top_raster = top_raster[0]
+        background_raster = np.array(pixelBlocks['background_raster_pixels'], dtype='f4', copy=False)
+        if background_raster.shape[0] == 1:
+            background_raster = background_raster[0]
         pixel_size = props['cellSize']
         if (pixel_size[0] <= 0) | (pixel_size[1] <= 0):
             raise Exception("Input raster cell size is invalid.")

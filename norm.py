@@ -94,16 +94,21 @@ class RVTNormalize:
         }
 
     def updateRasterInfo(self, **kwargs):
-        kwargs['output_info']['bandCount'] = 1
         r = kwargs['raster_info']
+        if int(r['bandCount']) == 3:
+            kwargs['output_info']['bandCount'] = 3
+        else:
+            kwargs['output_info']['bandCount'] = 1
         kwargs['output_info']['noData'] = np.nan
         kwargs['output_info']['pixelType'] = 'f4'
         kwargs['output_info']['histogram'] = ()
-        kwargs['output_info']['statistics'] = ({'minimum': 0.0, 'maximum': 1.0}, )
+        kwargs['output_info']['statistics'] = ()
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
-        dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)[0]  # Input pixel array.
+        dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)  # Input pixel array.
+        if dem.shape[0] == 1:
+            dem = dem[0]
         pixel_size = props['cellSize']
         if (pixel_size[0] <= 0) | (pixel_size[1] <= 0):
             raise Exception("Input raster cell size is invalid.")

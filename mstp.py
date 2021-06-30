@@ -33,11 +33,11 @@ class RVTMstp:
         self.local_scale_max = 10.
         self.local_scale_step = 1.
         self.meso_scale_min = 10.
-        self.meso_scale_max = 100.
-        self.meso_scale_step = 10.
+        self.meso_scale_max = 50.
+        self.meso_scale_step = 5.
         self.broad_scale_min = 100.
-        self.broad_scale_max = 1000.
-        self.broad_scale_step = 100.
+        self.broad_scale_max = 500.
+        self.broad_scale_step = 50.
         self.lightness = 1.2
         self.padding = 0 #int(self.broad_scale_max/2)  TODO: fix padding
 
