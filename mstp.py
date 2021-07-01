@@ -35,7 +35,7 @@ class RVTMstp:
         self.meso_scale_min = 10.
         self.meso_scale_max = 50.
         self.meso_scale_step = 5.
-        self.broad_scale_min = 100.
+        self.broad_scale_min = 50.
         self.broad_scale_max = 500.
         self.broad_scale_step = 50.
         self.lightness = 1.2
@@ -184,8 +184,8 @@ class RVTMstp:
             keyMetadata['productname'] = 'RVT {}'.format(name)
         return keyMetadata
 
-    def prepare(self, local_scale_min=1, local_scale_max=10, local_scale_step=1, meso_scale_min=10, meso_scale_max=100,
-                meso_scale_step=10, broad_scale_min=100, broad_scale_max=1000, broad_scale_step=100, lightness=1.2):
+    def prepare(self, local_scale_min=1, local_scale_max=10, local_scale_step=1, meso_scale_min=10, meso_scale_max=50,
+                meso_scale_step=5, broad_scale_min=50, broad_scale_max=500, broad_scale_step=50, lightness=1.2):
         self.local_scale_min = int(local_scale_min)
         self.local_scale_max = int(local_scale_max)
         self.local_scale_step = int(local_scale_step)
@@ -197,3 +197,4 @@ class RVTMstp:
         self.broad_scale_step = int(broad_scale_step)
         self.lightness = float(lightness)
         self.padding = int(self.broad_scale_max / 2)
+        
