@@ -39,7 +39,7 @@ class RVTMstp:
         self.broad_scale_max = 500.
         self.broad_scale_step = 50.
         self.lightness = 1.2
-        self.padding = 0 #int(self.broad_scale_max/2)  TODO: fix padding
+        self.padding = int(self.broad_scale_max/2)
 
     def getParameterInfo(self):
         return [
@@ -196,3 +196,4 @@ class RVTMstp:
         self.broad_scale_max = int(broad_scale_max)
         self.broad_scale_step = int(broad_scale_step)
         self.lightness = float(lightness)
+        self.padding = int(self.broad_scale_max / 2)
