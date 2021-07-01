@@ -166,13 +166,11 @@ class RVTMstp:
         if no_data is not None:
             no_data = props["noData"][0]
 
-        dem = np.pad(dem, self.padding)
-
         mstp = rvt.vis.mstp(dem=dem, local_scale=(self.local_scale_min, self.local_scale_max, self.local_scale_step),
                             meso_scale=(self.meso_scale_min, self.meso_scale_max, self.meso_scale_step),
                             broad_scale=(self.broad_scale_min, self.broad_scale_max, self.broad_scale_step),
                             lightness=self.lightness, no_data=no_data, fill_no_data=False, keep_original_no_data=False)
-        # mstp = mstp[:, self.padding:-self.padding, self.padding:-self.padding]  # remove padding
+        mstp = mstp[:, self.padding:-self.padding, self.padding:-self.padding]  # remove padding
 
         pixelBlocks['output_pixels'] = mstp.astype(props['pixelType'], copy=False)
         return pixelBlocks
@@ -197,4 +195,3 @@ class RVTMstp:
         self.broad_scale_step = int(broad_scale_step)
         self.lightness = float(lightness)
         self.padding = int(self.broad_scale_max / 2)
-        
