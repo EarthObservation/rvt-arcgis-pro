@@ -21,6 +21,7 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
+import gc
 
 
 class RVTMsrm:
@@ -128,7 +129,14 @@ class RVTMsrm:
                                                   min_norm=self.min_bytscl, max_norm=self.max_bytscl,
                                                   normalization=self.mode_bytscl)
             msrm = rvt.vis.byte_scale(data=msrm, no_data=no_data)
+
         pixelBlocks['output_pixels'] = msrm.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del msrm
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

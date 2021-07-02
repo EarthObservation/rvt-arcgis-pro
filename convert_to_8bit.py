@@ -20,6 +20,7 @@ Copyright:
 
 import numpy as np
 import rvt.vis
+import gc
 
 
 class RVTto8Bit:
@@ -74,6 +75,12 @@ class RVTto8Bit:
         bytescl_raster = rvt.vis.byte_scale(data=dem)
 
         pixelBlocks['output_pixels'] = bytescl_raster.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del bytescl_raster
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

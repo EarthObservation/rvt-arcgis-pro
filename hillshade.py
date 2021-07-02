@@ -21,6 +21,7 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
+import gc
 
 
 class RVTHillshade:
@@ -119,6 +120,12 @@ class RVTHillshade:
             hillshade = rvt.vis.byte_scale(data=hillshade, no_data=no_data)
 
         pixelBlocks['output_pixels'] = hillshade.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del hillshade
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

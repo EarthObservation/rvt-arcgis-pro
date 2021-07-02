@@ -23,6 +23,7 @@ COPYRIGHT:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
+import gc
 
 
 class RVTLocalDominance:
@@ -150,7 +151,14 @@ class RVTLocalDominance:
                                                              min_norm=self.min_bytscl, max_norm=self.max_bytscl,
                                                              normalization=self.mode_bytscl)
             local_dominance = rvt.vis.byte_scale(data=local_dominance, no_data=no_data)
+
         pixelBlocks['output_pixels'] = local_dominance.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del local_dominance
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

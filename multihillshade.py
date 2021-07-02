@@ -21,6 +21,7 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
+import gc
 
 
 class RVTMultiHillshade:
@@ -112,6 +113,12 @@ class RVTMultiHillshade:
         dict_slp_asp = rvt.vis.slope_aspect(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
                                             ve_factor=1, no_data=no_data, fill_no_data=False,
                                             keep_original_no_data=False)
+        hillshade_r = None
+        hillshade_g = None
+        hillshade_b = None
+        hillshade_rgb = None
+        multihillshade = None
+
         if self.calc_8_bit:  # calc 8 bit
             hillshade_r = rvt.vis.hillshade(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
                                             sun_azimuth=315, sun_elevation=self.elevation,
@@ -151,6 +158,7 @@ class RVTMultiHillshade:
 
             hillshade_rgb = np.array([hillshade_r, hillshade_g, hillshade_b])
             hillshade_rgb = hillshade_rgb[:, self.padding:-self.padding, self.padding:-self.padding]  # remove padding
+
             pixelBlocks['output_pixels'] = hillshade_rgb.astype(props['pixelType'], copy=False)
         else:  # calc nr_directions
             multihillshade = rvt.vis.multi_hillshade(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
@@ -159,7 +167,19 @@ class RVTMultiHillshade:
                                                      no_data=no_data, fill_no_data=False,
                                                      keep_original_no_data=False)
             multihillshade = multihillshade[:, self.padding:-self.padding, self.padding:-self.padding]  # remove padding
+
             pixelBlocks['output_pixels'] = multihillshade.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del dict_slp_asp
+        del hillshade_r
+        del hillshade_g
+        del hillshade_b
+        del hillshade_rgb
+        del multihillshade
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

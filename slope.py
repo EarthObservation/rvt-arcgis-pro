@@ -21,6 +21,7 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
+import gc
 
 
 class RVTSlope:
@@ -109,7 +110,15 @@ class RVTSlope:
                                                    min_norm=self.min_bytscl, max_norm=self.max_bytscl,
                                                    normalization=self.mode_bytscl)
             slope = rvt.vis.byte_scale(data=slope, no_data=no_data)
+
         pixelBlocks['output_pixels'] = slope.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del dict_slp_asp
+        del slope
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

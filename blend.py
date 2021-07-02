@@ -21,6 +21,7 @@ Copyright:
 import numpy as np
 import rvt.blend_func
 import rvt.vis
+import gc
 
 
 class RVTBlend:
@@ -130,6 +131,13 @@ class RVTBlend:
             rendered_image = rvt.vis.byte_scale(data=rendered_image)
 
         pixelBlocks['output_pixels'] = rendered_image.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del top_raster
+        del background_raster
+        del rendered_image
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

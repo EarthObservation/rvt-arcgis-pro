@@ -21,6 +21,7 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
+import gc
 
 
 class RVTSkyIllum:
@@ -160,6 +161,12 @@ class RVTSkyIllum:
             sky_illum = rvt.vis.byte_scale(data=sky_illum, no_data=no_data)
 
         pixelBlocks['output_pixels'] = sky_illum.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del sky_illum
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

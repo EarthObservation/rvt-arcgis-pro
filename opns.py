@@ -21,6 +21,7 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
+import gc
 
 
 class RVTOpenness:
@@ -147,6 +148,13 @@ class RVTOpenness:
             opns = rvt.vis.byte_scale(data=opns, no_data=no_data)
 
         pixelBlocks['output_pixels'] = opns.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del dict_opns
+        del opns
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):

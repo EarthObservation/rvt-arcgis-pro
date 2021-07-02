@@ -20,6 +20,7 @@ Copyright:
 
 import numpy as np
 import rvt.blend_func
+import gc
 
 
 class RVTNormalize:
@@ -118,6 +119,12 @@ class RVTNormalize:
                                                            normalization=self.normalization)
 
         pixelBlocks['output_pixels'] = normalized_raster.astype(props['pixelType'], copy=False)
+
+        # release memory
+        del dem
+        del normalized_raster
+        gc.collect()
+
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
