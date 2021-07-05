@@ -134,6 +134,8 @@ class RVTMsrm:
 
         # release memory
         del dem
+        del pixel_size
+        del no_data
         del msrm
         gc.collect()
 

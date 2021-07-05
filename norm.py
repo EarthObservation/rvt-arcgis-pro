@@ -122,6 +122,7 @@ class RVTNormalize:
 
         # release memory
         del dem
+        del pixel_size
         del normalized_raster
         gc.collect()
 

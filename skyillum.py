@@ -164,6 +164,8 @@ class RVTSkyIllum:
 
         # release memory
         del dem
+        del pixel_size
+        del no_data
         del sky_illum
         gc.collect()
 

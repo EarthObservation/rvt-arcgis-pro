@@ -157,6 +157,8 @@ class RVTASvf:
 
         # release memory
         del dem
+        del pixel_size
+        del no_data
         del dict_asvf
         del asvf
         gc.collect()

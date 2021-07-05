@@ -156,6 +156,8 @@ class RVTLocalDominance:
 
         # release memory
         del dem
+        del pixel_size
+        del no_data
         del local_dominance
         gc.collect()
 

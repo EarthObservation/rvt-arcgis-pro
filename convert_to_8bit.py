@@ -78,6 +78,7 @@ class RVTto8Bit:
 
         # release memory
         del dem
+        del pixel_size
         del bytescl_raster
         gc.collect()
 

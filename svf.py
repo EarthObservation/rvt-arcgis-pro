@@ -133,6 +133,8 @@ class RVTSvf:
 
         # release memory
         del dem
+        del pixel_size
+        del no_data
         del dict_svf
         del svf
         gc.collect()

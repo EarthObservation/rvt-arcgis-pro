@@ -123,6 +123,8 @@ class RVTHillshade:
 
         # release memory
         del dem
+        del no_data
+        del pixel_size
         del hillshade
         gc.collect()
 

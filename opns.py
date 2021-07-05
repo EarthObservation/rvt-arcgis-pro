@@ -151,6 +151,8 @@ class RVTOpenness:
 
         # release memory
         del dem
+        del pixel_size
+        del no_data
         del dict_opns
         del opns
         gc.collect()

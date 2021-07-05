@@ -135,6 +135,7 @@ class RVTBlend:
         # release memory
         del top_raster
         del background_raster
+        del pixel_size
         del rendered_image
         gc.collect()
 

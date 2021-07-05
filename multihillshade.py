@@ -172,6 +172,8 @@ class RVTMultiHillshade:
 
         # release memory
         del dem
+        del no_data
+        del pixel_size
         del dict_slp_asp
         del hillshade_r
         del hillshade_g

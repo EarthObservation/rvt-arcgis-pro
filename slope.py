@@ -115,6 +115,8 @@ class RVTSlope:
 
         # release memory
         del dem
+        del pixel_size
+        del no_data
         del dict_slp_asp
         del slope
         gc.collect()

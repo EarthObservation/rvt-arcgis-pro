@@ -128,6 +128,7 @@ class RVTColormap:
 
         # release memory
         del norm_image
+        del pixel_size
         del colored_raster
         gc.collect()
 

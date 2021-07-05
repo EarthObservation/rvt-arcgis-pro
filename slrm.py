@@ -109,6 +109,7 @@ class RVTSlrm:
 
         # release memory
         del dem
+        del no_data
         del slrm
         gc.collect()
 

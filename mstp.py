@@ -162,7 +162,6 @@ class RVTMstp:
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
         dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)[0]  # Input pixel array.
-        pixel_size = props['cellSize']
         no_data = props["noData"]
         if no_data is not None:
             no_data = props["noData"][0]
@@ -177,6 +176,7 @@ class RVTMstp:
 
         # release memory
         del dem
+        del no_data
         del mstp
         gc.collect()
 
