@@ -128,7 +128,7 @@ class RVTBlend:
         rendered_image = rvt.blend_func.render_images(active=top_raster, background=background_raster,
                                                       opacity=self.opacity)
         if self.calc_8_bit:
-            rendered_image = rvt.vis.byte_scale(data=rendered_image)
+            rendered_image = rvt.vis.byte_scale(data=rendered_image, c_min=0.0, c_max=1.0)
 
         pixelBlocks['output_pixels'] = rendered_image.astype(props['pixelType'], copy=False)
 
