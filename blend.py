@@ -36,7 +36,7 @@ class RVTBlend:
     def getParameterInfo(self):
         return [
             {
-                'name': 'top_raster',
+                'name': 'topRaster',
                 'dataType': 'raster',
                 'value': None,
                 'required': True,
@@ -44,7 +44,7 @@ class RVTBlend:
                 'description': "Input top raster on which we apply opacity, blend and render with background raster."
             },
             {
-                'name': 'background_raster',
+                'name': 'backgroundRaster',
                 'dataType': 'raster',
                 'value': None,
                 'required': True,
@@ -92,8 +92,8 @@ class RVTBlend:
         }
 
     def updateRasterInfo(self, **kwargs):
-        r1 = kwargs['top_raster_info']
-        r2 = kwargs['background_raster_info']
+        r1 = kwargs['topRaster_info']
+        r2 = kwargs['backgroundRaster_info']
         if int(r1['bandCount']) == 3 or int(r2['bandCount']) == 3:
             kwargs['output_info']['bandCount'] = 3
         else:
@@ -108,10 +108,10 @@ class RVTBlend:
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
-        top_raster = np.array(pixelBlocks['top_raster_pixels'], dtype='f4', copy=False)
+        top_raster = np.array(pixelBlocks['topRaster_pixels'], dtype='f4', copy=False)
         if top_raster.shape[0] == 1:
             top_raster = top_raster[0]
-        background_raster = np.array(pixelBlocks['background_raster_pixels'], dtype='f4', copy=False)
+        background_raster = np.array(pixelBlocks['backgroundRaster_pixels'], dtype='f4', copy=False)
         if background_raster.shape[0] == 1:
             background_raster = background_raster[0]
         pixel_size = props['cellSize']
