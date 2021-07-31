@@ -36,7 +36,7 @@ class RVTLocalDominance:
         self.rad_inc = 1.
         self.anglr_res = 15.
         self.observer_h = 1.7
-        self.padding = int(self.max_rad / 2)
+        self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
         self.calc_8_bit = False
         self.mode_bytscl = "value"
@@ -182,5 +182,5 @@ class RVTLocalDominance:
         self.rad_inc = int(rad_inc)
         self.anglr_res = int(anglr_res)
         self.observer_h = float(observer_h)
-        self.padding = int(max_rad / 2)
+        self.padding = int(max_rad)
         self.calc_8_bit = calc_8_bit

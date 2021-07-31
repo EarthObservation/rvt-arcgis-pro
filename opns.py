@@ -33,7 +33,7 @@ class RVTOpenness:
         self.max_rad = 10.
         self.noise = "0-don't remove"
         self.pos_neg = "Positive"
-        self.padding = int(self.max_rad/2)
+        self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
         self.calc_8_bit = False
         self.mode_bytscl = "value"
@@ -178,5 +178,5 @@ class RVTOpenness:
         self.max_rad = int(max_rad)
         self.noise = int(noise[0])
         self.pos_neg = pos_neg
-        self.padding = int(max_rad/2)
+        self.padding = int(max_rad)
         self.calc_8_bit = calc_8_bit

@@ -36,7 +36,7 @@ class RVTASvf:
         self.noise = "0-don't remove"  # in prepare changed to int
         self.level = "1-low"  # in prepare changed to int
         self.direction = 315.
-        self.padding = int(self.max_rad / 2)
+        self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
         self.calc_8_bit = False
         self.mode_bytscl = "percent"
@@ -188,4 +188,4 @@ class RVTASvf:
         self.direction = int(direction)
         self.level = int(level[0])
         self.calc_8_bit = bool(calc_8_bit)
-        self.padding = int(max_rad / 2)
+        self.padding = int(max_rad)

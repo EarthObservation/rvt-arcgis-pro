@@ -32,7 +32,7 @@ class RVTSvf:
         self.nr_directions = 16.
         self.max_rad = 10.
         self.noise = "0-don't remove"
-        self.padding = int(self.max_rad / 2)
+        self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
         self.calc_8_bit = False
         self.mode_bytscl = "value"
@@ -156,5 +156,5 @@ class RVTSvf:
         self.nr_directions = int(nr_directions)
         self.max_rad = int(max_rad)
         self.noise = int(noise[0])
-        self.padding = int(max_rad / 2)
+        self.padding = int(max_rad)
         self.calc_8_bit = calc_8_bit

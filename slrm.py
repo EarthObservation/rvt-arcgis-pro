@@ -33,8 +33,8 @@ class RVTSlrm:
         self.padding = int(self.radius_cell)
         # 8bit (bytscale) parameters
         self.calc_8_bit = False
-        self.mode_bytscl = "percent"
-        self.min_bytscl = 2
+        self.mode_bytscl = "value"
+        self.min_bytscl = -2
         self.max_bytscl = 2
 
     def getParameterInfo(self):
@@ -91,7 +91,6 @@ class RVTSlrm:
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
         dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)[0]  # Input pixel array.
-        dem = change_0_pad_to_edge_pad(dem=dem, pad_width=self.padding)  # change padding
         no_data = props["noData"]
         if no_data is not None:
             no_data = props["noData"][0]
@@ -103,7 +102,7 @@ class RVTSlrm:
             slrm = rvt.blend_func.normalize_image(visualization="simple local relief model", image=slrm,
                                                   min_norm=self.min_bytscl, max_norm=self.max_bytscl,
                                                   normalization=self.mode_bytscl)
-            slrm = rvt.vis.byte_scale(data=slrm, no_data=no_data)
+            slrm = rvt.vis.byte_scale(data=slrm, no_data=no_data, c_min=0, c_max=1)
 
         pixelBlocks['output_pixels'] = slrm.astype(props['pixelType'], copy=False)
 
@@ -130,9 +129,3 @@ class RVTSlrm:
         self.radius_cell = int(radius_cell)
         self.padding = int(radius_cell)
         self.calc_8_bit = calc_8_bit
-
-
-def change_0_pad_to_edge_pad(dem, pad_width):
-    dem = dem[pad_width:-pad_width, pad_width:-pad_width]  # remove esri 0 padding
-    dem = np.pad(array=dem, pad_width=pad_width, mode="edge")  # add new edge padding
-    return dem
