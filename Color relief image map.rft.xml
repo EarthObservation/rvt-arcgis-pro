@@ -15,6 +15,7 @@
 			<String>opacity</String>
 			<String>PythonModule</String>
 			<String>ClassName</String>
+			<String>nr_out_bands</String>
 		</Names>
 		<Values xsi:type='typens:ArrayOfAnyType' id='ID4'>
 			<AnyType xsi:type='typens:RasterFunctionTemplate' id='ID5'>
@@ -23,7 +24,7 @@
 				<Function xsi:type='typens:PythonAdapterFunction' id='ID6'>
 					<Name>RVT normalize</Name>
 					<Description>Normalize image (0-1).</Description>
-					<PixelType>UNKNOWN</PixelType>
+					<PixelType>F32</PixelType>
 				</Function>
 				<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID7'>
 					<Names xsi:type='typens:ArrayOfString' id='ID8'>
@@ -52,6 +53,8 @@
 									<String>ExtentType</String>
 									<String>CellsizeType</String>
 									<String>Operation</String>
+									<String>MatchVariable</String>
+									<String>UnionDimension</String>
 								</Names>
 								<Values xsi:type='typens:ArrayOfAnyType' id='ID14'>
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID15'>
@@ -315,6 +318,8 @@
 										<Value xsi:type='xs:int'>2</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
+									<AnyType xsi:type='typens:RasterFunctionVariable' href='ID28'/>
+									<AnyType xsi:type='typens:RasterFunctionVariable' href='ID29'/>
 								</Values>
 							</Arguments>
 							<Help/>
@@ -371,7 +376,7 @@
 							<Value xsi:type='xs:string'>value</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
-						<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\norm.py</AnyType>
+						<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\fnorm.py</AnyType>
 						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID75'>
 							<Name>ClassName</Name>
 							<Description/>
@@ -419,6 +424,7 @@
 						<String>opacity</String>
 						<String>PythonModule</String>
 						<String>ClassName</String>
+						<String>nr_out_bands</String>
 					</Names>
 					<Values xsi:type='typens:ArrayOfAnyType' id='ID84'>
 						<AnyType xsi:type='typens:RasterFunctionTemplate' href='ID5'/>
@@ -447,7 +453,7 @@
 										<Function xsi:type='typens:PythonAdapterFunction' id='ID91'>
 											<Name>RVT normalize</Name>
 											<Description>Normalize image (0-1).</Description>
-											<PixelType>UNKNOWN</PixelType>
+											<PixelType>F32</PixelType>
 										</Function>
 										<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID92'>
 											<Names xsi:type='typens:ArrayOfString' id='ID93'>
@@ -460,6 +466,7 @@
 												<String>ClassName</String>
 												<String>MatchVariable</String>
 												<String>UnionDimension</String>
+												<String>nr_out_bands</String>
 											</Names>
 											<Values xsi:type='typens:ArrayOfAnyType' id='ID94'>
 												<AnyType xsi:type='typens:RasterFunctionTemplate' id='ID95'>
@@ -576,7 +583,7 @@
 													<Value xsi:type='xs:string'>value</Value>
 													<IsDataset>false</IsDataset>
 												</AnyType>
-												<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\norm.py</AnyType>
+												<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\fnorm.py</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID116'>
 													<Name>ClassName</Name>
 													<Description/>
@@ -585,6 +592,12 @@
 												</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' href='ID104'/>
 												<AnyType xsi:type='typens:RasterFunctionVariable' href='ID105'/>
+												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID117'>
+													<Name>nr_out_bands</Name>
+													<Description/>
+													<Value/>
+													<IsDataset>false</IsDataset>
+												</AnyType>
 											</Values>
 										</Arguments>
 										<Help>Normalize image 0-1. Cutoff by minimum and maximum value or percent.</Help>
@@ -594,45 +607,45 @@
 										<Group/>
 										<Tag/>
 										<ThumbnailEx/>
-										<Properties xsi:type='typens:PropertySet' id='ID117'>
-											<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID118'>
-												<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID119'>
+										<Properties xsi:type='typens:PropertySet' id='ID118'>
+											<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID119'>
+												<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID120'>
 													<Key>MatchVariable</Key>
 													<Value xsi:type='typens:RasterFunctionVariable' href='ID104'/>
 												</PropertySetProperty>
-												<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID120'>
+												<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID121'>
 													<Key>UnionDimension</Key>
 													<Value xsi:type='typens:RasterFunctionVariable' href='ID105'/>
 												</PropertySetProperty>
 											</PropertyArray>
 										</Properties>
 									</AnyType>
-									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID121'>
+									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID122'>
 										<Name>colormap</Name>
 										<Description/>
 										<Value xsi:type='xs:string'>Reds_r</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
-									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID122'>
+									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID123'>
 										<Name>min_colormap_cut</Name>
 										<Description/>
 										<Value xsi:type='xs:double'>0.5</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
-									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID123'>
+									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID124'>
 										<Name>max_colormap_cut</Name>
 										<Description/>
 										<Value xsi:type='xs:double'>1</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
-									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID124'>
+									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID125'>
 										<Name>calc_8_bit</Name>
 										<Description/>
 										<Value xsi:type='xs:int'>0</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
 									<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\colormap.py</AnyType>
-									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID125'>
+									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID126'>
 										<Name>ClassName</Name>
 										<Description/>
 										<Value xsi:type='xs:string'>RVTColormap</Value>
@@ -640,7 +653,7 @@
 									</AnyType>
 								</Values>
 							</Arguments>
-							<Aliases xsi:type='typens:ArrayOfString' id='ID126'>
+							<Aliases xsi:type='typens:ArrayOfString' id='ID127'>
 								<String>__tans__(colormap,min_colormap_cut,max_colormap_cut)</String>
 							</Aliases>
 							<Help/>
@@ -650,20 +663,20 @@
 							<Group/>
 							<Tag/>
 							<ThumbnailEx/>
-							<Properties xsi:type='typens:PropertySet' id='ID127'>
-								<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID128'>
-									<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID129'>
+							<Properties xsi:type='typens:PropertySet' id='ID128'>
+								<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID129'>
+									<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID130'>
 										<Key>MatchVariable</Key>
-										<Value xsi:type='typens:RasterFunctionVariable' id='ID130'>
+										<Value xsi:type='typens:RasterFunctionVariable' id='ID131'>
 											<Name>MatchVariable</Name>
 											<Description/>
 											<Value xsi:type='xs:boolean'>true</Value>
 											<IsDataset>false</IsDataset>
 										</Value>
 									</PropertySetProperty>
-									<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID131'>
+									<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID132'>
 										<Key>UnionDimension</Key>
-										<Value xsi:type='typens:RasterFunctionVariable' id='ID132'>
+										<Value xsi:type='typens:RasterFunctionVariable' id='ID133'>
 											<Name>UnionDimension</Name>
 											<Description/>
 											<Value xsi:type='xs:boolean'>false</Value>
@@ -673,29 +686,35 @@
 								</PropertyArray>
 							</Properties>
 						</AnyType>
-						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID133'>
+						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID134'>
 							<Name>calc_8_bit</Name>
 							<Description/>
 							<Value xsi:type='xs:int'>0</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
-						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID134'>
+						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID135'>
 							<Name>blend_mode</Name>
 							<Description/>
 							<Value xsi:type='xs:string'>luminosity</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
-						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID135'>
+						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID136'>
 							<Name>opacity</Name>
 							<Description/>
 							<Value xsi:type='xs:double'>50</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
 						<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\blend.py</AnyType>
-						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID136'>
+						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID137'>
 							<Name>ClassName</Name>
 							<Description/>
 							<Value xsi:type='xs:string'>RVTBlend</Value>
+							<IsDataset>false</IsDataset>
+						</AnyType>
+						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID138'>
+							<Name>nr_out_bands</Name>
+							<Description/>
+							<Value xsi:type='xs:string'>3</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
 					</Values>
@@ -707,20 +726,20 @@
 				<Group/>
 				<Tag/>
 				<ThumbnailEx/>
-				<Properties xsi:type='typens:PropertySet' id='ID137'>
-					<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID138'>
-						<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID139'>
+				<Properties xsi:type='typens:PropertySet' id='ID139'>
+					<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID140'>
+						<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID141'>
 							<Key>MatchVariable</Key>
-							<Value xsi:type='typens:RasterFunctionVariable' id='ID140'>
+							<Value xsi:type='typens:RasterFunctionVariable' id='ID142'>
 								<Name>MatchVariable</Name>
 								<Description/>
 								<Value xsi:type='xs:boolean'>true</Value>
 								<IsDataset>false</IsDataset>
 							</Value>
 						</PropertySetProperty>
-						<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID141'>
+						<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID143'>
 							<Key>UnionDimension</Key>
-							<Value xsi:type='typens:RasterFunctionVariable' id='ID142'>
+							<Value xsi:type='typens:RasterFunctionVariable' id='ID144'>
 								<Name>UnionDimension</Name>
 								<Description/>
 								<Value xsi:type='xs:boolean'>false</Value>
@@ -730,34 +749,40 @@
 					</PropertyArray>
 				</Properties>
 			</AnyType>
-			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID143'>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID145'>
 				<Name>calc_8_bit</Name>
 				<Description/>
 				<Value xsi:type='xs:boolean'>false</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID144'>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID146'>
 				<Name>blend_mode</Name>
 				<Description/>
 				<Value xsi:type='xs:string'>overlay</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID145'>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID147'>
 				<Name>opacity</Name>
 				<Description/>
 				<Value xsi:type='xs:double'>50</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\blend.py</AnyType>
-			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID146'>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID148'>
 				<Name>ClassName</Name>
 				<Description/>
 				<Value xsi:type='xs:string'>RVTBlend</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID149'>
+				<Name>nr_out_bands</Name>
+				<Description/>
+				<Value xsi:type='xs:string'>3</Value>
+				<IsDataset>false</IsDataset>
+			</AnyType>
 		</Values>
 	</Arguments>
-	<Aliases xsi:type='typens:ArrayOfString' id='ID147'>
+	<Aliases xsi:type='typens:ArrayOfString' id='ID150'>
 		<String>__tans__(calc_8_bit)</String>
 	</Aliases>
 	<Help/>
@@ -767,20 +792,20 @@
 	<Group/>
 	<Tag/>
 	<ThumbnailEx/>
-	<Properties xsi:type='typens:PropertySet' id='ID148'>
-		<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID149'>
-			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID150'>
+	<Properties xsi:type='typens:PropertySet' id='ID151'>
+		<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID152'>
+			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID153'>
 				<Key>MatchVariable</Key>
-				<Value xsi:type='typens:RasterFunctionVariable' id='ID151'>
+				<Value xsi:type='typens:RasterFunctionVariable' id='ID154'>
 					<Name>MatchVariable</Name>
 					<Description/>
 					<Value xsi:type='xs:boolean'>true</Value>
 					<IsDataset>false</IsDataset>
 				</Value>
 			</PropertySetProperty>
-			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID152'>
+			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID155'>
 				<Key>UnionDimension</Key>
-				<Value xsi:type='typens:RasterFunctionVariable' id='ID153'>
+				<Value xsi:type='typens:RasterFunctionVariable' id='ID156'>
 					<Name>UnionDimension</Name>
 					<Description/>
 					<Value xsi:type='xs:boolean'>false</Value>

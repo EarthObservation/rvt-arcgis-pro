@@ -32,6 +32,7 @@ class RVTBlend:
         self.blend_mode = "normal"
         self.opacity = 100.
         self.calc_8_bit = False
+        self.nr_out_bands = "1"
 
     def getParameterInfo(self):
         return [
@@ -75,12 +76,21 @@ class RVTBlend:
                 'required': True,
                 'displayName': "Opacity",
                 'description': "Opacity in percent to apply on top raster (0-100)."
+            },
+            {
+                'name': 'nr_out_bands',
+                'dataType': 'string',
+                'value': self.nr_out_bands,
+                'required': False,
+                'displayName': "Number of output bands.",
+                'domain': ("1", "3"),
+                'description': "If any of the inputs have 3 bands (RGB) output should also have 3 bands."
             }
         ]
 
     def getConfiguration(self, **scalars):
         self.prepare(blend_mode=scalars.get('blend_mode'), opacity=scalars.get("opacity"),
-                     calc_8_bit=scalars.get("calc_8_bit"))
+                     calc_8_bit=scalars.get("calc_8_bit"), nr_out_bands=scalars.get("nr_out_bands"))
         return {
             'compositeRasters': False,
             'inheritProperties': 4,
@@ -92,9 +102,7 @@ class RVTBlend:
         }
 
     def updateRasterInfo(self, **kwargs):
-        r1 = kwargs['topRaster_info']
-        r2 = kwargs['backgroundRaster_info']
-        if int(r1['bandCount']) == 3 or int(r2['bandCount']) == 3:
+        if self.nr_out_bands == "3":
             kwargs['output_info']['bandCount'] = 3
         else:
             kwargs['output_info']['bandCount'] = 1
@@ -152,7 +160,7 @@ class RVTBlend:
             keyMetadata['productname'] = 'RVT {}'.format(name)
         return keyMetadata
 
-    def prepare(self, blend_mode="normal", opacity=100, calc_8_bit=False):
+    def prepare(self, blend_mode="normal", opacity=100, calc_8_bit=False, nr_out_bands="1"):
         opacity = int(opacity)
         self.blend_mode = blend_mode
         self.calc_8_bit = calc_8_bit
@@ -162,3 +170,4 @@ class RVTBlend:
             self.opacity = 0
         else:
             self.opacity = opacity
+        self.nr_out_bands = nr_out_bands
