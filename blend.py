@@ -82,7 +82,7 @@ class RVTBlend:
                 'dataType': 'string',
                 'value': self.nr_out_bands,
                 'required': False,
-                'displayName': "Number of output bands.",
+                'displayName': "Number of output bands",
                 'domain': ("1", "3"),
                 'description': "If any of the inputs have 3 bands (RGB) output should also have 3 bands."
             }
