@@ -32,6 +32,7 @@ class RVTNormalize:
         self.minimum = 0.
         self.maximum = 1.
         self.normalization = "value"
+        self.nr_out_bands = "1"
 
     def getParameterInfo(self):
         return [
@@ -78,12 +79,22 @@ class RVTNormalize:
                 'displayName': "Normalization",
                 'domain': ('value', 'perc'),
                 'description': "Define minimum and maximum units. If value cutoff value if perc cutoff percent."
+            },
+            {
+                'name': 'nr_out_bands',
+                'dataType': 'string',
+                'value': self.nr_out_bands,
+                'required': False,
+                'displayName': "Number of output bands",
+                'domain': ("1", "3"),
+                'description': "If any of the inputs have 3 bands (RGB) output should also have 3 bands."
             }
         ]
 
     def getConfiguration(self, **scalars):
         self.prepare(visualization=scalars.get('visualization'), minimum=scalars.get("minimum"),
-                     maximum=scalars.get("maximum"), normalization=scalars.get("normalization"))
+                     maximum=scalars.get("maximum"), normalization=scalars.get("normalization"),
+                     nr_out_bands=scalars.get("nr_out_bands"))
         return {
             'compositeRasters': False,
             'inheritProperties': 4,
@@ -95,8 +106,7 @@ class RVTNormalize:
         }
 
     def updateRasterInfo(self, **kwargs):
-        r = kwargs['raster_info']
-        if int(r['bandCount']) == 3:
+        if self.nr_out_bands == "3":
             kwargs['output_info']['bandCount'] = 3
         else:
             kwargs['output_info']['bandCount'] = 1
@@ -135,8 +145,9 @@ class RVTNormalize:
             keyMetadata['productname'] = 'RVT {}'.format(name)
         return keyMetadata
 
-    def prepare(self, visualization="Other", minimum=0, maximum=1, normalization="value"):
+    def prepare(self, visualization="Other", minimum=0, maximum=1, normalization="value", nr_out_bands="1"):
         self.visualization = visualization
         self.minimum = float(minimum)
         self.maximum = float(maximum)
         self.normalization = normalization
+        self.nr_out_bands = nr_out_bands
