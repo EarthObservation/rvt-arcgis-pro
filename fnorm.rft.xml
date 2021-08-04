@@ -47,7 +47,7 @@
 				<Value xsi:type='xs:string'>value</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
-			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\norm.py</AnyType>
+			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\fnorm.py</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID10'>
 				<Name>ClassName</Name>
 				<Description/>
