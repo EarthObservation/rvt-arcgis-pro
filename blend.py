@@ -32,12 +32,11 @@ class RVTBlend:
         self.blend_mode = "normal"
         self.opacity = 100.
         self.calc_8_bit = False
-        self.nr_out_bands = "1"
 
     def getParameterInfo(self):
         return [
             {
-                'name': 'topRaster',
+                'name': 'topraster',
                 'dataType': 'raster',
                 'value': None,
                 'required': True,
@@ -45,7 +44,7 @@ class RVTBlend:
                 'description': "Input top raster on which we apply opacity, blend and render with background raster."
             },
             {
-                'name': 'backgroundRaster',
+                'name': 'bgraster',
                 'dataType': 'raster',
                 'value': None,
                 'required': True,
@@ -76,21 +75,12 @@ class RVTBlend:
                 'required': True,
                 'displayName': "Opacity",
                 'description': "Opacity in percent to apply on top raster (0-100)."
-            },
-            {
-                'name': 'nr_out_bands',
-                'dataType': 'string',
-                'value': self.nr_out_bands,
-                'required': False,
-                'displayName': "Number of output bands",
-                'domain': ("1", "3"),
-                'description': "If any of the inputs have 3 bands (RGB) output should also have 3 bands."
             }
         ]
 
     def getConfiguration(self, **scalars):
         self.prepare(blend_mode=scalars.get('blend_mode'), opacity=scalars.get("opacity"),
-                     calc_8_bit=scalars.get("calc_8_bit"), nr_out_bands=scalars.get("nr_out_bands"))
+                     calc_8_bit=scalars.get("calc_8_bit"))
         return {
             'compositeRasters': False,
             'inheritProperties': 4,
@@ -102,7 +92,9 @@ class RVTBlend:
         }
 
     def updateRasterInfo(self, **kwargs):
-        if self.nr_out_bands == "3":
+        t = kwargs['topraster_info']
+        b = kwargs['bgraster_info']
+        if int(t['bandCount']) == 3 or int(b['bandCount']) == 3:
             kwargs['output_info']['bandCount'] = 3
         else:
             kwargs['output_info']['bandCount'] = 1
@@ -116,10 +108,10 @@ class RVTBlend:
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
-        top_raster = np.array(pixelBlocks['topRaster_pixels'], dtype='f4', copy=False)
+        top_raster = np.array(pixelBlocks['topraster_pixels'], dtype='f4', copy=False)
         if top_raster.shape[0] == 1:
             top_raster = top_raster[0]
-        background_raster = np.array(pixelBlocks['backgroundRaster_pixels'], dtype='f4', copy=False)
+        background_raster = np.array(pixelBlocks['bgraster_pixels'], dtype='f4', copy=False)
         if background_raster.shape[0] == 1:
             background_raster = background_raster[0]
         pixel_size = props['cellSize']
@@ -160,7 +152,7 @@ class RVTBlend:
             keyMetadata['productname'] = 'RVT {}'.format(name)
         return keyMetadata
 
-    def prepare(self, blend_mode="normal", opacity=100, calc_8_bit=False, nr_out_bands="1"):
+    def prepare(self, blend_mode="normal", opacity=100, calc_8_bit=False):
         opacity = int(opacity)
         self.blend_mode = blend_mode
         self.calc_8_bit = calc_8_bit
@@ -170,4 +162,3 @@ class RVTBlend:
             self.opacity = 0
         else:
             self.opacity = opacity
-        self.nr_out_bands = nr_out_bands

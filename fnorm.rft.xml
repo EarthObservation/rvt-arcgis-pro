@@ -18,7 +18,7 @@
 		</Names>
 		<Values xsi:type='typens:ArrayOfAnyType' id='ID4'>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID5'>
-				<Name>Raster</Name>
+				<Name>raster</Name>
 				<Description/>
 				<Value/>
 				<IsDataset>true</IsDataset>

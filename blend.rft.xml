@@ -8,8 +8,8 @@
 	</Function>
 	<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID2'>
 		<Names xsi:type='typens:ArrayOfString' id='ID3'>
-			<String>top_raster</String>
-			<String>background_raster</String>
+			<String>topraster</String>
+			<String>bgraster</String>
 			<String>calc_8_bit</String>
 			<String>blend_mode</String>
 			<String>opacity</String>
@@ -18,13 +18,13 @@
 		</Names>
 		<Values xsi:type='typens:ArrayOfAnyType' id='ID4'>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID5'>
-				<Name>Raster</Name>
+				<Name>topraster</Name>
 				<Description/>
 				<Value/>
 				<IsDataset>true</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
-				<Name>background_raster</Name>
+				<Name>bgraster</Name>
 				<Description/>
 				<Value/>
 				<IsDataset>true</IsDataset>
