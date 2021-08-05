@@ -8,8 +8,8 @@
 	</Function>
 	<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID2'>
 		<Names xsi:type='typens:ArrayOfString' id='ID3'>
-			<String>topRaster</String>
-			<String>backgroundRaster</String>
+			<String>topraster</String>
+			<String>bgraster</String>
 			<String>blend_mode</String>
 			<String>opacity</String>
 			<String>PythonModule</String>
@@ -27,8 +27,8 @@
 				</Function>
 				<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID7'>
 					<Names xsi:type='typens:ArrayOfString' id='ID8'>
-						<String>topRaster</String>
-						<String>backgroundRaster</String>
+						<String>topraster</String>
+						<String>bgraster</String>
 						<String>blend_mode</String>
 						<String>opacity</String>
 						<String>PythonModule</String>
@@ -268,8 +268,8 @@
 							</Function>
 							<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID56'>
 								<Names xsi:type='typens:ArrayOfString' id='ID57'>
-									<String>topRaster</String>
-									<String>backgroundRaster</String>
+									<String>topraster</String>
+									<String>bgraster</String>
 									<String>blend_mode</String>
 									<String>opacity</String>
 									<String>PythonModule</String>
@@ -468,8 +468,8 @@
 										</Function>
 										<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID95'>
 											<Names xsi:type='typens:ArrayOfString' id='ID96'>
-												<String>topRaster</String>
-												<String>backgroundRaster</String>
+												<String>topraster</String>
+												<String>bgraster</String>
 												<String>blend_mode</String>
 												<String>opacity</String>
 												<String>PythonModule</String>
@@ -998,8 +998,8 @@
 				</Function>
 				<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID196'>
 					<Names xsi:type='typens:ArrayOfString' id='ID197'>
-						<String>topRaster</String>
-						<String>backgroundRaster</String>
+						<String>topraster</String>
+						<String>bgraster</String>
 						<String>blend_mode</String>
 						<String>opacity</String>
 						<String>PythonModule</String>
@@ -1191,8 +1191,8 @@
 							</Function>
 							<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID234'>
 								<Names xsi:type='typens:ArrayOfString' id='ID235'>
-									<String>topRaster</String>
-									<String>backgroundRaster</String>
+									<String>topraster</String>
+									<String>bgraster</String>
 									<String>blend_mode</String>
 									<String>opacity</String>
 									<String>PythonModule</String>
@@ -1391,8 +1391,8 @@
 										</Function>
 										<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID273'>
 											<Names xsi:type='typens:ArrayOfString' id='ID274'>
-												<String>topRaster</String>
-												<String>backgroundRaster</String>
+												<String>topraster</String>
+												<String>bgraster</String>
 												<String>blend_mode</String>
 												<String>opacity</String>
 												<String>PythonModule</String>

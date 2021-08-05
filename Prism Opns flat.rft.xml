@@ -8,8 +8,8 @@
 	</Function>
 	<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID2'>
 		<Names xsi:type='typens:ArrayOfString' id='ID3'>
-			<String>topRaster</String>
-			<String>backgroundRaster</String>
+			<String>topraster</String>
+			<String>bgraster</String>
 			<String>blend_mode</String>
 			<String>opacity</String>
 			<String>PythonModule</String>
@@ -27,8 +27,8 @@
 				</Function>
 				<Arguments xsi:type='typens:PythonAdapterFunctionArguments' id='ID7'>
 					<Names xsi:type='typens:ArrayOfString' id='ID8'>
-						<String>topRaster</String>
-						<String>backgroundRaster</String>
+						<String>topraster</String>
+						<String>bgraster</String>
 						<String>blend_mode</String>
 						<String>opacity</String>
 						<String>PythonModule</String>
