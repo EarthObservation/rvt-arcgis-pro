@@ -133,6 +133,7 @@ class RVTLocalDominance:
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
         dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)[0]  # Input pixel array.
+        dem = change_0_pad_to_edge_pad(dem, self.padding)
         pixel_size = props['cellSize']
         if (pixel_size[0] <= 0) | (pixel_size[1] <= 0):
             raise Exception("Input raster cell size is invalid.")
@@ -184,3 +185,9 @@ class RVTLocalDominance:
         self.observer_h = float(observer_h)
         self.padding = int(max_rad)
         self.calc_8_bit = calc_8_bit
+
+
+def change_0_pad_to_edge_pad(dem, pad_width):
+    dem = dem[pad_width:-pad_width, pad_width:-pad_width]  # remove esri 0 padding
+    dem = np.pad(array=dem, pad_width=pad_width, mode="edge")  # add new edge padding
+    return dem

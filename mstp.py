@@ -162,6 +162,7 @@ class RVTMstp:
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
         dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)[0]  # Input pixel array.
+        dem = change_0_pad_to_edge_pad(dem, self.padding)
         no_data = props["noData"]
         if no_data is not None:
             no_data = props["noData"][0]
@@ -202,3 +203,9 @@ class RVTMstp:
         self.broad_scale_step = int(broad_scale_step)
         self.lightness = float(lightness)
         self.padding = int(self.broad_scale_max)
+
+
+def change_0_pad_to_edge_pad(dem, pad_width):
+    dem = dem[pad_width:-pad_width, pad_width:-pad_width]  # remove esri 0 padding
+    dem = np.pad(array=dem, pad_width=pad_width, mode="edge")  # add new edge padding
+    return dem
