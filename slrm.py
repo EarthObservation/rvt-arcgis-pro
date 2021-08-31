@@ -133,6 +133,9 @@ class RVTSlrm:
 
 
 def change_0_pad_to_edge_pad(dem, pad_width):
+    if np.any(dem[0:pad_width, :]) or np.any(dem[-pad_width:, :]) or\
+            np.any(dem[:, 0:pad_width]) or np.any(dem[:, -pad_width:]):
+        return dem
     dem = dem[pad_width:-pad_width, pad_width:-pad_width]  # remove esri 0 padding
     dem = np.pad(array=dem, pad_width=pad_width, mode="edge")  # add new edge padding
     return dem
