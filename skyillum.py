@@ -151,8 +151,7 @@ class RVTSkyIllum:
         sky_illum = rvt.vis.sky_illumination(dem=dem, resolution=pixel_size[0], sky_model=self.sky_model,
                                              compute_shadow=self.compute_shadow, max_fine_radius=self.max_fine_radius,
                                              num_directions=self.num_directions, shadow_az=self.shadow_az,
-                                             shadow_el=self.shadow_el, no_data=no_data, fill_no_data=False,
-                                             keep_original_no_data=False)
+                                             shadow_el=self.shadow_el, no_data=no_data)
         sky_illum = sky_illum[self.padding:-self.padding, self.padding:-self.padding]  # remove padding
         if self.calc_8_bit:
             sky_illum = rvt.blend_func.normalize_image(visualization="sky illumination", image=sky_illum,

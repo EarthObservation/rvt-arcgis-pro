@@ -123,7 +123,7 @@ class RVTMsrm:
 
         msrm = rvt.vis.msrm(dem=dem, resolution=pixel_size[0], feature_min=self.feature_min,
                             feature_max=self.feature_max, scaling_factor=self.scaling_factor,
-                            no_data=no_data, fill_no_data=False, keep_original_no_data=False)
+                            no_data=no_data)
         msrm = msrm[self.padding:-self.padding, self.padding:-self.padding]
         if self.calc_8_bit:
             msrm = rvt.blend_func.normalize_image(visualization="multi-scale relief model", image=msrm,

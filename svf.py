@@ -121,8 +121,7 @@ class RVTSvf:
 
         dict_svf = rvt.vis.sky_view_factor(dem=dem, resolution=pixel_size[0], compute_svf=True, compute_asvf=False,
                                            compute_opns=False, svf_n_dir=self.nr_directions, svf_r_max=self.max_rad,
-                                           svf_noise=self.noise, no_data=no_data, fill_no_data=False,
-                                           keep_original_no_data=False)
+                                           svf_noise=self.noise, no_data=no_data)
         svf = dict_svf["svf"][self.padding:-self.padding, self.padding:-self.padding]  # remove padding
         if self.calc_8_bit:
             svf = rvt.blend_func.normalize_image(visualization="sky-view factor", image=svf,

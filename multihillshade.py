@@ -123,18 +123,15 @@ class RVTMultiHillshade:
             hillshade_r = rvt.vis.hillshade(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
                                             sun_azimuth=315, sun_elevation=self.elevation,
                                             slope=dict_slp_asp["slope"], aspect=dict_slp_asp["aspect"],
-                                            no_data=no_data, fill_no_data=False,
-                                            keep_original_no_data=False)
+                                            no_data=no_data)
             hillshade_g = rvt.vis.hillshade(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
                                             sun_azimuth=22.5, sun_elevation=self.elevation,
                                             slope=dict_slp_asp["slope"], aspect=dict_slp_asp["aspect"],
-                                            no_data=no_data, fill_no_data=False,
-                                            keep_original_no_data=False)
+                                            no_data=no_data)
             hillshade_b = rvt.vis.hillshade(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
                                             sun_azimuth=90, sun_elevation=self.elevation,
                                             slope=dict_slp_asp["slope"], aspect=dict_slp_asp["aspect"],
-                                            no_data=no_data, fill_no_data=False,
-                                            keep_original_no_data=False)
+                                            no_data=no_data)
             if self.mode_bytscl.lower() == "value":
                 hillshade_r = rvt.blend_func.normalize_lin(image=hillshade_r, minimum=self.min_bytscl,
                                                            maximum=self.max_bytscl)

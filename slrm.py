@@ -96,8 +96,7 @@ class RVTSlrm:
         if no_data is not None:
             no_data = props["noData"][0]
 
-        slrm = rvt.vis.slrm(dem=dem, radius_cell=self.radius_cell, no_data=no_data, fill_no_data=False,
-                            keep_original_no_data=False)
+        slrm = rvt.vis.slrm(dem=dem, radius_cell=self.radius_cell, no_data=no_data)
         slrm = slrm[self.padding:-self.padding, self.padding:-self.padding]
         if self.calc_8_bit:
             slrm = rvt.blend_func.normalize_image(visualization="simple local relief model", image=slrm,

@@ -143,9 +143,7 @@ class RVTLocalDominance:
 
         local_dominance = rvt.vis.local_dominance(dem=dem, min_rad=self.min_rad, max_rad=self.max_rad,
                                                   rad_inc=self.rad_inc, angular_res=self.anglr_res,
-                                                  observer_height=self.observer_h, no_data=no_data,
-                                                  fill_no_data=False,
-                                                  keep_original_no_data=False)
+                                                  observer_height=self.observer_h, no_data=no_data)
         local_dominance = local_dominance[self.padding:-self.padding, self.padding:-self.padding]  # remove padding
         if self.calc_8_bit:
             local_dominance = rvt.blend_func.normalize_image(visualization="local dominance", image=local_dominance,

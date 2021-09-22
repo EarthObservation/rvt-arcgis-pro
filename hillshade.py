@@ -110,8 +110,7 @@ class RVTHillshade:
 
         hillshade = rvt.vis.hillshade(dem=dem, resolution_x=pixel_size[0],
                                       resolution_y=pixel_size[1], sun_azimuth=self.azimuth,
-                                      sun_elevation=self.elevation, no_data=no_data, fill_no_data=False,
-                                      keep_original_no_data=False)
+                                      sun_elevation=self.elevation, no_data=no_data)
         hillshade = hillshade[self.padding:-self.padding, self.padding:-self.padding]  # remove padding
         if self.calc_8_bit:
             hillshade = rvt.blend_func.normalize_image(visualization="hillshade", image=hillshade,

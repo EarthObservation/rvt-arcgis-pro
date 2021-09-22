@@ -136,8 +136,7 @@ class RVTOpenness:
 
         dict_opns = rvt.vis.sky_view_factor(dem=dem, resolution=pixel_size[0], compute_svf=False, compute_asvf=False,
                                             compute_opns=True, svf_n_dir=self.nr_directions, svf_r_max=self.max_rad,
-                                            svf_noise=self.noise, no_data=no_data, fill_no_data=False,
-                                            keep_original_no_data=False)
+                                            svf_noise=self.noise, no_data=no_data)
         opns = dict_opns["opns"][self.padding:-self.padding, self.padding:-self.padding]
         if self.calc_8_bit:
             visualization = "openness - positive"

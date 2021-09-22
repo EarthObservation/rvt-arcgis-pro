@@ -145,8 +145,7 @@ class RVTASvf:
         dict_asvf = rvt.vis.sky_view_factor(dem=dem, resolution=pixel_size[0], compute_svf=False, compute_asvf=True,
                                             compute_opns=False, svf_n_dir=self.nr_directions, svf_r_max=self.max_rad,
                                             svf_noise=self.noise, asvf_level=self.level, asvf_dir=self.direction,
-                                            no_data=no_data, fill_no_data=False,
-                                            keep_original_no_data=False)
+                                            no_data=no_data)
         asvf = dict_asvf["asvf"][self.padding:-self.padding, self.padding:-self.padding]  # remove padding
         if self.calc_8_bit:
             asvf = rvt.blend_func.normalize_image(visualization="anisotropic sky-view factor", image=asvf,

@@ -101,9 +101,7 @@ class RVTSlope:
             no_data = props["noData"][0]
 
         dict_slp_asp = rvt.vis.slope_aspect(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
-                                            output_units=self.output_unit, no_data=no_data,
-                                            fill_no_data=False,
-                                            keep_original_no_data=False)
+                                            output_units=self.output_unit, no_data=no_data)
         slope = dict_slp_asp["slope"][self.padding:-self.padding, self.padding:-self.padding]
         if self.calc_8_bit:
             slope = rvt.blend_func.normalize_image(visualization="slope gradient", image=slope,
