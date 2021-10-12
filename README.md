@@ -8,7 +8,10 @@ For ArcGIS Pro use, copy whole repository folder (_rvt-arcgis-pro_) to:
 ```
 <ArcGIS Pro install path>/Resources/Raster/Functions/Custom
 ```
-Usually the path is: c:\Program Files\ArcGIS\Pro\Resources\Raster\Functions\Custom\
+Usually the path is: 
+```
+c:/Program Files/ArcGIS/Pro/Resources/Raster/Functions/Custom
+```
 For Server use, copy the whole repository folder (_rvt-arcgis-pro_) to every federated Server machine of your enterprise Setup:
 ```
 <ArcGIS Server install path> /framework/runtime/ArcGIS/Resources/Raster/Functions/Custom
