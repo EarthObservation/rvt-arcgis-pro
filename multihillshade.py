@@ -111,8 +111,7 @@ class RVTMultiHillshade:
             no_data = props["noData"][0]
 
         dict_slp_asp = rvt.vis.slope_aspect(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
-                                            ve_factor=1, no_data=no_data, fill_no_data=False,
-                                            keep_original_no_data=False)
+                                            ve_factor=1, no_data=no_data)
         hillshade_r = None
         hillshade_g = None
         hillshade_b = None
@@ -161,8 +160,7 @@ class RVTMultiHillshade:
             multihillshade = rvt.vis.multi_hillshade(dem=dem, resolution_x=pixel_size[0], resolution_y=pixel_size[1],
                                                      nr_directions=self.nr_directions, sun_elevation=self.elevation,
                                                      slope=dict_slp_asp["slope"], aspect=dict_slp_asp["aspect"],
-                                                     no_data=no_data, fill_no_data=False,
-                                                     keep_original_no_data=False)
+                                                     no_data=no_data)
             multihillshade = multihillshade[:, self.padding:-self.padding, self.padding:-self.padding]  # remove padding
 
             pixelBlocks['output_pixels'] = multihillshade.astype(props['pixelType'], copy=False)
