@@ -167,3 +167,24 @@ def change_0_pad_to_edge_pad(dem, pad_width):
     dem = dem[pad_width:-pad_width, pad_width:-pad_width]  # remove esri 0 padding
     dem = np.pad(array=dem, pad_width=pad_width, mode="edge")  # add new edge padding
     return dem
+
+
+def change_0_pad_to_edge_pad(dem, pad_width):
+    dem_out = dem.copy()
+    if not np.any(dem[:pad_width, :]):  # if all top padding zeros
+        dem_out = dem_out[pad_width:, :]  # remove esri 0 padding top
+        # pad top
+        dem_out = np.pad(array=dem_out, pad_width=((pad_width,0), (0,0)), mode="edge")
+    if not np.any(dem[-pad_width:, :]):  # if all bottom padding zeros
+        dem_out = dem_out[:-pad_width, :]  # remove esri 0 padding bottom
+        # pad bottom
+        dem_out = np.pad(array=dem_out, pad_width=((0, pad_width), (0, 0)), mode="edge")
+    if not np.any(dem[:, :pad_width]):  # if all left padding zeros
+        dem_out = dem_out[:, pad_width:]  # remove esri 0 padding left
+        # pad left
+        dem_out = np.pad(array=dem_out, pad_width=((0, 0), (pad_width, 0)), mode="edge")
+    if not np.any(dem[:, -pad_width:]):  # if all right padding zeros
+        dem_out = dem_out[:, :-pad_width]  # remove esri 0 padding right
+        # pad right
+        dem_out = np.pad(array=dem_out, pad_width=((0, 0), (0, pad_width)), mode="edge")
+    return dem_out

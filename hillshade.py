@@ -93,14 +93,16 @@ class RVTHillshade:
         kwargs['output_info']['noData'] = np.nan
         if not self.calc_8_bit:
             kwargs['output_info']['pixelType'] = 'f4'
+            kwargs['output_info']['statistics'] = ({'minimum': 0, 'maximum': 1})
         else:
             kwargs['output_info']['pixelType'] = 'u1'
+            kwargs['output_info']['statistics'] = ({'minimum': 0, 'maximum': 255})
         kwargs['output_info']['histogram'] = ()
-        kwargs['output_info']['statistics'] = ()
         return kwargs
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
         dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)[0]  # Input pixel array.
+        dem = change_0_pad_to_edge_pad(dem, self.padding)
         pixel_size = props['cellSize']
         if (pixel_size[0] <= 0) | (pixel_size[1] <= 0):
             raise Exception("Input raster cell size is invalid.")
@@ -144,3 +146,24 @@ class RVTHillshade:
         self.azimuth = float(azimuth)
         self.elevation = float(elevation)
         self.calc_8_bit = calc_8_bit
+
+
+def change_0_pad_to_edge_pad(dem, pad_width):
+    dem_out = dem.copy()
+    if not np.any(dem[:pad_width, :]):  # if all top padding zeros
+        dem_out = dem_out[pad_width:, :]  # remove esri 0 padding top
+        # pad top
+        dem_out = np.pad(array=dem_out, pad_width=((pad_width,0), (0,0)), mode="edge")
+    if not np.any(dem[-pad_width:, :]):  # if all bottom padding zeros
+        dem_out = dem_out[:-pad_width, :]  # remove esri 0 padding bottom
+        # pad bottom
+        dem_out = np.pad(array=dem_out, pad_width=((0, pad_width), (0, 0)), mode="edge")
+    if not np.any(dem[:, :pad_width]):  # if all left padding zeros
+        dem_out = dem_out[:, pad_width:]  # remove esri 0 padding left
+        # pad left
+        dem_out = np.pad(array=dem_out, pad_width=((0, 0), (pad_width, 0)), mode="edge")
+    if not np.any(dem[:, -pad_width:]):  # if all right padding zeros
+        dem_out = dem_out[:, :-pad_width]  # remove esri 0 padding right
+        # pad right
+        dem_out = np.pad(array=dem_out, pad_width=((0, 0), (0, pad_width)), mode="edge")
+    return dem_out
