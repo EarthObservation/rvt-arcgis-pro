@@ -35,7 +35,7 @@ class RVTSkyIllum:
         self.num_directions = 32.
         self.shadow_az = 315.
         self.shadow_el = 35.
-        self.padding = 10
+        self.padding = int(self.max_fine_radius)
         # 8bit (bytscale) parameters
         self.calc_8_bit = False
         self.mode_bytscl = "percent"
@@ -189,7 +189,7 @@ class RVTSkyIllum:
         self.num_directions = int(num_directions)
         self.shadow_az = int(shadow_az)
         self.shadow_el = int(shadow_el)
-        self.padding = 10
+        self.padding = int(max_fine_radius)
         self.calc_8_bit = calc_8_bit
 
 

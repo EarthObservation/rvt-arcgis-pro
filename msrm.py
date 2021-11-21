@@ -32,12 +32,12 @@ class RVTMsrm:
         self.feature_min = 0.
         self.feature_max = 20.
         self.scaling_factor = 2.
-        self.padding = 1
+        self.padding = 1  # set in prepare
         # 8bit (bytscale) parameters
         self.calc_8_bit = False
-        self.mode_bytscl = "percent"
-        self.min_bytscl = 2
-        self.max_bytscl = 2
+        self.mode_bytscl = "value"
+        self.min_bytscl = -2.5
+        self.max_bytscl = 2.5
 
     def getParameterInfo(self):
         return [
