@@ -1,6 +1,6 @@
 <RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/2.6.0'>
-	<Name>VAT Arch general</Name>
-	<Description>Calculates and blend visualization for archaeological topography (VAT) general.</Description>
+	<Name>VAT steep</Name>
+	<Description>Calculates and blend visualization for archaeological topography (VAT) steep.</Description>
 	<Function xsi:type='typens:PythonAdapterFunction' id='ID1'>
 		<Name>RVT blend</Name>
 		<Description>Blend and render two images together.</Description>
@@ -181,7 +181,7 @@
 						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID39'>
 							<Name>minimum</Name>
 							<Description/>
-							<Value xsi:type='xs:double'>0.69999999999999996</Value>
+							<Value xsi:type='xs:double'>0.55000000000000004</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
 						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID40'>
@@ -379,13 +379,13 @@
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID78'>
 										<Name>minimum</Name>
 										<Description/>
-										<Value xsi:type='xs:double'>68</Value>
+										<Value xsi:type='xs:double'>55</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID79'>
 										<Name>maximum</Name>
 										<Description/>
-										<Value xsi:type='xs:double'>93</Value>
+										<Value xsi:type='xs:double'>95</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID80'>
@@ -571,7 +571,7 @@
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID116'>
 													<Name>maximum</Name>
 													<Description/>
-													<Value xsi:type='xs:double'>50</Value>
+													<Value xsi:type='xs:double'>60</Value>
 													<IsDataset>false</IsDataset>
 												</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID117'>
@@ -920,7 +920,7 @@
 	</Aliases>
 	<Help>Visualization for archaeological topography (VAT) combines hillshading (or hillshading from three directions), slope, positive openness and sky-view factor with predetermined calculation and blending settings for ‘normal’ (complex) and very flat terrain. We have selected the visualization methods based on their complementary positive characteristics and the specific blending modes because they amplify these particular characteristics. They also work uniformly with varied data and the visualizations of different areas are therefore directly comparable (Kokalj and Somrak 2019).</Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt-arcgis-pro\thumbnails\BLEND_ARCH_GENERAL.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt-arcgis-pro\thumbnails\BLEND_ARCH_STEEP.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>

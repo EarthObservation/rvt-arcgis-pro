@@ -1,5 +1,5 @@
 <RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/2.6.0'>
-	<Name>VAT Combined</Name>
+	<Name>VAT combined</Name>
 	<Description>1st layer: VAT general 50% transparency, 2nd layer: VAT flat</Description>
 	<Function xsi:type='typens:PythonAdapterFunction' id='ID1'>
 		<Name>RVT blend</Name>

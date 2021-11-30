@@ -1,6 +1,6 @@
 <RasterFunctionTemplate xsi:type='typens:RasterFunctionTemplate' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/2.6.0'>
-	<Name>VAT Arch flat</Name>
-	<Description>Calculates and blend visualization for archaeological topography (VAT) flat.</Description>
+	<Name>VAT general</Name>
+	<Description>Calculates and blend visualization for archaeological topography (VAT) general.</Description>
 	<Function xsi:type='typens:PythonAdapterFunction' id='ID1'>
 		<Name>RVT blend</Name>
 		<Description>Blend and render two images together.</Description>
@@ -115,13 +115,13 @@
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID27'>
 										<Name>max_rad</Name>
 										<Description/>
-										<Value xsi:type='xs:double'>20</Value>
+										<Value xsi:type='xs:double'>10</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID28'>
 										<Name>noise_remove</Name>
 										<Description/>
-										<Value xsi:type='xs:string'>3-high</Value>
+										<Value xsi:type='xs:string'>0-don&apos;t remove</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
 									<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\svf.py</AnyType>
@@ -181,7 +181,7 @@
 						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID39'>
 							<Name>minimum</Name>
 							<Description/>
-							<Value xsi:type='xs:double'>0.90000000000000002</Value>
+							<Value xsi:type='xs:double'>0.69999999999999996</Value>
 							<IsDataset>false</IsDataset>
 						</AnyType>
 						<AnyType xsi:type='typens:RasterFunctionVariable' id='ID40'>
@@ -307,13 +307,13 @@
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID65'>
 													<Name>max_rad</Name>
 													<Description/>
-													<Value xsi:type='xs:double'>20</Value>
+													<Value xsi:type='xs:double'>10</Value>
 													<IsDataset>false</IsDataset>
 												</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID66'>
 													<Name>noise_remove</Name>
 													<Description/>
-													<Value xsi:type='xs:string'>3-high</Value>
+													<Value xsi:type='xs:string'>0-don&apos;t remove</Value>
 													<IsDataset>false</IsDataset>
 												</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID67'>
@@ -379,7 +379,7 @@
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID78'>
 										<Name>minimum</Name>
 										<Description/>
-										<Value xsi:type='xs:double'>85</Value>
+										<Value xsi:type='xs:double'>68</Value>
 										<IsDataset>false</IsDataset>
 									</AnyType>
 									<AnyType xsi:type='typens:RasterFunctionVariable' id='ID79'>
@@ -571,7 +571,7 @@
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID116'>
 													<Name>maximum</Name>
 													<Description/>
-													<Value xsi:type='xs:double'>15</Value>
+													<Value xsi:type='xs:double'>50</Value>
 													<IsDataset>false</IsDataset>
 												</AnyType>
 												<AnyType xsi:type='typens:RasterFunctionVariable' id='ID117'>
@@ -660,7 +660,7 @@
 															<AnyType xsi:type='typens:RasterFunctionVariable' id='ID134'>
 																<Name>sun_elevation</Name>
 																<Description/>
-																<Value xsi:type='xs:double'>15</Value>
+																<Value xsi:type='xs:double'>35</Value>
 																<IsDataset>false</IsDataset>
 															</AnyType>
 															<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\hillshade.py</AnyType>
@@ -920,7 +920,7 @@
 	</Aliases>
 	<Help>Visualization for archaeological topography (VAT) combines hillshading (or hillshading from three directions), slope, positive openness and sky-view factor with predetermined calculation and blending settings for ‘normal’ (complex) and very flat terrain. We have selected the visualization methods based on their complementary positive characteristics and the specific blending modes because they amplify these particular characteristics. They also work uniformly with varied data and the visualizations of different areas are therefore directly comparable (Kokalj and Somrak 2019).</Help>
 	<Type>0</Type>
-	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\thumbnails\BLEND_ARCH_FLAT.jpg</Thumbnail>
+	<Thumbnail xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\rvt-arcgis-pro\thumbnails\BLEND_ARCH_GENERAL.jpg</Thumbnail>
 	<Definition/>
 	<Group/>
 	<Tag/>
