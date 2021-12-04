@@ -189,7 +189,7 @@ class RVTSkyIllum:
         self.num_directions = int(num_directions)
         self.shadow_az = int(shadow_az)
         self.shadow_el = int(shadow_el)
-        self.padding = int(max_fine_radius)
+        self.padding = int(max_fine_radius) + 20
         self.calc_8_bit = calc_8_bit
 
 
