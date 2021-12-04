@@ -13,6 +13,7 @@
 			<String>feature_min</String>
 			<String>feature_max</String>
 			<String>scaling_factor</String>
+			<String>resolution</String>
 			<String>PythonModule</String>
 			<String>ClassName</String>
 		</Names>
@@ -32,23 +33,29 @@
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
 				<Name>feature_min</Name>
 				<Description/>
-				<Value xsi:type='xs:double'>1</Value>
+				<Value xsi:type='xs:double'>0</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID7'>
 				<Name>feature_max</Name>
 				<Description/>
-				<Value xsi:type='xs:double'>5</Value>
+				<Value xsi:type='xs:double'>20</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID8'>
 				<Name>scaling_factor</Name>
 				<Description/>
-				<Value xsi:type='xs:double'>3</Value>
+				<Value xsi:type='xs:double'>2</Value>
+				<IsDataset>false</IsDataset>
+			</AnyType>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID9'>
+				<Name>resolution</Name>
+				<Description/>
+				<Value xsi:type='xs:double'>1</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\msrm.py</AnyType>
-			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID9'>
+			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID10'>
 				<Name>ClassName</Name>
 				<Description/>
 				<Value xsi:type='xs:string'>RVTMsrm</Value>
@@ -63,20 +70,20 @@
 	<Group/>
 	<Tag/>
 	<ThumbnailEx/>
-	<Properties xsi:type='typens:PropertySet' id='ID10'>
-		<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID11'>
-			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID12'>
+	<Properties xsi:type='typens:PropertySet' id='ID11'>
+		<PropertyArray xsi:type='typens:ArrayOfPropertySetProperty' id='ID12'>
+			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID13'>
 				<Key>MatchVariable</Key>
-				<Value xsi:type='typens:RasterFunctionVariable' id='ID13'>
+				<Value xsi:type='typens:RasterFunctionVariable' id='ID14'>
 					<Name>MatchVariable</Name>
 					<Description/>
 					<Value xsi:type='xs:boolean'>true</Value>
 					<IsDataset>false</IsDataset>
 				</Value>
 			</PropertySetProperty>
-			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID14'>
+			<PropertySetProperty xsi:type='typens:PropertySetProperty' id='ID15'>
 				<Key>UnionDimension</Key>
-				<Value xsi:type='typens:RasterFunctionVariable' id='ID15'>
+				<Value xsi:type='typens:RasterFunctionVariable' id='ID16'>
 					<Name>UnionDimension</Name>
 					<Description/>
 					<Value xsi:type='xs:boolean'>false</Value>

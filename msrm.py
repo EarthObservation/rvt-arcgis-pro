@@ -82,12 +82,21 @@ class RVTMsrm:
                 'description': "Scaling factor, if larger than 1 it provides larger range of MSRM values"
                                " (increase contrast and visibility), but could result in a loss of sensitivity"
                                " for intermediate sized features."
+            },
+            {  # FIXME: Find better solution to get resolution into getConfiguration for padding
+                'name': 'resolution',
+                'dataType': 'numeric',
+                'value': 1.,
+                'required': True,
+                'displayName': "Resolution",
+                'description': "Resolution of Raster."
             }
         ]
 
     def getConfiguration(self, **scalars):
         self.prepare(feature_min=scalars.get("feature_min"), feature_max=scalars.get("feature_max"),
-                     scaling_factor=scalars.get("scaling_factor"), calc_8_bit=scalars.get("calc_8_bit"))
+                     scaling_factor=scalars.get("scaling_factor"), calc_8_bit=scalars.get("calc_8_bit"),
+                     resolution=scalars.get("resolution"))
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -153,11 +162,11 @@ class RVTMsrm:
             keyMetadata['productname'] = 'RVT {}'.format(name)
         return keyMetadata
 
-    def prepare(self, feature_min=1, feature_max=5, scaling_factor=3, calc_8_bit=False):
+    def prepare(self, feature_min=0, feature_max=20, scaling_factor=2, calc_8_bit=False, resolution=1):
+        # FIXME: We can't get resolution in getConfiguration
         self.feature_min = float(feature_min)
         self.feature_max = float(feature_max)
         self.scaling_factor = int(scaling_factor)
-        resolution = 1  # we can't get resolution in getConfiguration so we will set it to 1
         n = int(np.ceil(((self.feature_max - resolution) / (2 * resolution)) ** (1 / self.scaling_factor)))
         self.padding = n ** self.scaling_factor
         self.calc_8_bit = calc_8_bit
