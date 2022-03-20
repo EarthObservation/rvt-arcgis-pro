@@ -4,7 +4,7 @@ Relief Visualization Toolbox was produced to help scientist visualize raster ele
 
 ## Installation
 
-For ArcGIS Pro use, copy whole repository folder (_rvt-arcgis-pro_) to:
+For ArcGIS Pro use, download repository, rename repository directory to _rvt-arcgis-pro_ and copy it to:
 ```
 <ArcGIS Pro install path>/Resources/Raster/Functions/Custom
 ```
