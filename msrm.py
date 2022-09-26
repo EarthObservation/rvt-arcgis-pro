@@ -21,7 +21,6 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTMsrm:
@@ -141,13 +140,6 @@ class RVTMsrm:
             msrm = rvt.vis.byte_scale(data=msrm, no_data=no_data)
 
         pixelBlocks['output_pixels'] = msrm.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del pixel_size
-        del no_data
-        del msrm
-        gc.collect()
 
         return pixelBlocks
 

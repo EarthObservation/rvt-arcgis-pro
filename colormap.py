@@ -20,7 +20,6 @@ Copyright:
 
 import numpy as np
 import rvt.blend_func
-import gc
 
 
 class RVTColormap:
@@ -125,12 +124,6 @@ class RVTColormap:
                                                                  output_8bit=self.calc_8_bit)
 
         pixelBlocks['output_pixels'] = colored_raster.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del norm_image
-        del pixel_size
-        del colored_raster
-        gc.collect()
 
         return pixelBlocks
 

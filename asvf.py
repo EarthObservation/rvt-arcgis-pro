@@ -23,7 +23,6 @@ COPYRIGHT:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTASvf:
@@ -154,14 +153,6 @@ class RVTASvf:
             asvf = rvt.vis.byte_scale(data=asvf, no_data=no_data)
 
         pixelBlocks['output_pixels'] = asvf.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del pixel_size
-        del no_data
-        del dict_asvf
-        del asvf
-        gc.collect()
 
         return pixelBlocks
 
