@@ -122,7 +122,7 @@ class RVTOpenness:
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
         dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)[0]  # Input pixel array.
-        # dem = change_0_pad_to_edge_pad(dem, self.padding)
+        dem = change_0_pad_to_edge_pad(dem, self.padding)
         pixel_size = props['cellSize']
         if (pixel_size[0] <= 0) | (pixel_size[1] <= 0):
             raise Exception("Input raster cell size is invalid.")
