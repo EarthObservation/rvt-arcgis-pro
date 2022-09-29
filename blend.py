@@ -30,7 +30,7 @@ class RVTBlend:
         # default values
         self.blend_mode = "normal"
         self.opacity = 100.
-        self.calc_8_bit = False
+        self.calc_8_bit = True
 
     def getParameterInfo(self):
         return [

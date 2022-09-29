@@ -30,7 +30,7 @@ class RVTMultiHillshade:
         # default values
         self.nr_directions = 16.
         self.elevation = 35.
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.padding = 1
         # 8bit (bytscale) parameters
         self.mode_bytscl = "value"

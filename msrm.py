@@ -33,7 +33,7 @@ class RVTMsrm:
         self.scaling_factor = 2.
         self.padding = 1  # set in prepare
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = -2.5
         self.max_bytscl = 2.5

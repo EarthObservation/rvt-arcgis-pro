@@ -30,7 +30,7 @@ class RVTColormap:
         self.colormap = "Reds_r"
         self.min_colormap_cut = 0.0
         self.max_colormap_cut = 1.0
-        self.calc_8_bit = False
+        self.calc_8_bit = True
 
     def getParameterInfo(self):
         return [

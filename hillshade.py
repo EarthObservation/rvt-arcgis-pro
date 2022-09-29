@@ -32,7 +32,7 @@ class RVTHillshade:
         self.elevation = 35.
         self.padding = 1
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = 0
         self.max_bytscl = 1

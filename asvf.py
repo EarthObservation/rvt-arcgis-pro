@@ -37,7 +37,7 @@ class RVTASvf:
         self.direction = 315.
         self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = 0.65
         self.max_bytscl = 1

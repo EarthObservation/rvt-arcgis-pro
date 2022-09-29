@@ -34,7 +34,7 @@ class RVTOpenness:
         self.pos_neg = "Positive"
         self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = 60
         self.max_bytscl = 95
