@@ -17,10 +17,9 @@ Copyright:
     2010-2020 Research Centre of the Slovenian Academy of Sciences and Arts
     2016-2020 University of Ljubljana, Faculty of Civil and Geodetic Engineering
 """
-
+# TODO: Add cmin and cmax! use minimum and maximum from normalization
 import numpy as np
 import rvt.vis
-import gc
 
 
 class RVTto8Bit:
@@ -76,19 +75,9 @@ class RVTto8Bit:
 
         pixelBlocks['output_pixels'] = bytescl_raster.astype(props['pixelType'], copy=False)
 
-        # release memory
-        del dem
-        del pixel_size
-        del bytescl_raster
-        gc.collect()
-
         return pixelBlocks
 
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
         if bandIndex == -1:
             keyMetadata['datatype'] = 'Processed'
             keyMetadata['productname'] = 'RVT 8-bit'
-        return keyMetadata
-
-    def prepare(self):
-        pass

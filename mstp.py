@@ -22,7 +22,6 @@ COPYRIGHT:
 
 import numpy as np
 import rvt.vis
-import gc
 
 
 class RVTMstp:
@@ -174,12 +173,6 @@ class RVTMstp:
         mstp = mstp[:, self.padding:-self.padding, self.padding:-self.padding]  # remove padding
 
         pixelBlocks['output_pixels'] = mstp.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del no_data
-        del mstp
-        gc.collect()
 
         return pixelBlocks
 

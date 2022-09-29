@@ -20,7 +20,6 @@ Copyright:
 
 import numpy as np
 import rvt.blend_func
-import gc
 
 
 class RVTColormap:
@@ -31,7 +30,7 @@ class RVTColormap:
         self.colormap = "Reds_r"
         self.min_colormap_cut = 0.0
         self.max_colormap_cut = 1.0
-        self.calc_8_bit = False
+        self.calc_8_bit = True
 
     def getParameterInfo(self):
         return [
@@ -125,12 +124,6 @@ class RVTColormap:
                                                                  output_8bit=self.calc_8_bit)
 
         pixelBlocks['output_pixels'] = colored_raster.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del norm_image
-        del pixel_size
-        del colored_raster
-        gc.collect()
 
         return pixelBlocks
 

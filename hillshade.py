@@ -21,7 +21,6 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTHillshade:
@@ -33,7 +32,7 @@ class RVTHillshade:
         self.elevation = 35.
         self.padding = 1
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = 0
         self.max_bytscl = 1
@@ -121,13 +120,6 @@ class RVTHillshade:
             hillshade = rvt.vis.byte_scale(data=hillshade, no_data=no_data)
 
         pixelBlocks['output_pixels'] = hillshade.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del no_data
-        del pixel_size
-        del hillshade
-        gc.collect()
 
         return pixelBlocks
 

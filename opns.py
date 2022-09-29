@@ -21,7 +21,6 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTOpenness:
@@ -35,7 +34,7 @@ class RVTOpenness:
         self.pos_neg = "Positive"
         self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = 60
         self.max_bytscl = 95
@@ -123,7 +122,7 @@ class RVTOpenness:
 
     def updatePixels(self, tlc, shape, props, **pixelBlocks):
         dem = np.array(pixelBlocks['raster_pixels'], dtype='f4', copy=False)[0]  # Input pixel array.
-        # dem = change_0_pad_to_edge_pad(dem, self.padding)
+        dem = change_0_pad_to_edge_pad(dem, self.padding)
         pixel_size = props['cellSize']
         if (pixel_size[0] <= 0) | (pixel_size[1] <= 0):
             raise Exception("Input raster cell size is invalid.")
@@ -148,14 +147,6 @@ class RVTOpenness:
             opns = rvt.vis.byte_scale(data=opns, no_data=no_data)
 
         pixelBlocks['output_pixels'] = opns.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del pixel_size
-        del no_data
-        del dict_opns
-        del opns
-        gc.collect()
 
         return pixelBlocks
 

@@ -21,7 +21,6 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTSvf:
@@ -34,7 +33,7 @@ class RVTSvf:
         self.noise = "0-don't remove"
         self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = 0.6375
         self.max_bytscl = 1
@@ -130,14 +129,6 @@ class RVTSvf:
             svf = rvt.vis.byte_scale(data=svf, no_data=no_data)
 
         pixelBlocks['output_pixels'] = svf.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del pixel_size
-        del no_data
-        del dict_svf
-        del svf
-        gc.collect()
 
         return pixelBlocks
 

@@ -21,7 +21,6 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTSlrm:
@@ -32,7 +31,7 @@ class RVTSlrm:
         self.radius_cell = 20.
         self.padding = int(self.radius_cell)
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = -2
         self.max_bytscl = 2
@@ -105,12 +104,6 @@ class RVTSlrm:
             slrm = rvt.vis.byte_scale(data=slrm, no_data=no_data, c_min=0, c_max=1)
 
         pixelBlocks['output_pixels'] = slrm.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del no_data
-        del slrm
-        gc.collect()
 
         return pixelBlocks
 

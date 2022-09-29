@@ -21,7 +21,6 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTSlope:
@@ -32,7 +31,7 @@ class RVTSlope:
         self.output_unit = "degree"
         self.padding = 1
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = 0
         self.max_bytscl = 51
@@ -111,14 +110,6 @@ class RVTSlope:
             slope = rvt.vis.byte_scale(data=slope, no_data=no_data)
 
         pixelBlocks['output_pixels'] = slope.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del pixel_size
-        del no_data
-        del dict_slp_asp
-        del slope
-        gc.collect()
 
         return pixelBlocks
 

@@ -23,7 +23,6 @@ COPYRIGHT:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTLocalDominance:
@@ -38,7 +37,7 @@ class RVTLocalDominance:
         self.observer_h = 1.7
         self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "value"
         self.min_bytscl = 0.5
         self.max_bytscl = 1.8
@@ -152,13 +151,6 @@ class RVTLocalDominance:
             local_dominance = rvt.vis.byte_scale(data=local_dominance, no_data=no_data)
 
         pixelBlocks['output_pixels'] = local_dominance.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del pixel_size
-        del no_data
-        del local_dominance
-        gc.collect()
 
         return pixelBlocks
 

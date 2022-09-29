@@ -21,7 +21,6 @@ Copyright:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTSkyIllum:
@@ -37,7 +36,7 @@ class RVTSkyIllum:
         self.shadow_el = 35.
         self.padding = int(self.max_fine_radius)
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
+        self.calc_8_bit = True
         self.mode_bytscl = "percent"
         self.min_bytscl = 0.25
         self.max_bytscl = 0
@@ -160,13 +159,6 @@ class RVTSkyIllum:
             sky_illum = rvt.vis.byte_scale(data=sky_illum, no_data=no_data)
 
         pixelBlocks['output_pixels'] = sky_illum.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del pixel_size
-        del no_data
-        del sky_illum
-        gc.collect()
 
         return pixelBlocks
 

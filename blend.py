@@ -21,7 +21,6 @@ Copyright:
 import numpy as np
 import rvt.blend_func
 import rvt.vis
-import gc
 
 
 class RVTBlend:
@@ -31,7 +30,7 @@ class RVTBlend:
         # default values
         self.blend_mode = "normal"
         self.opacity = 100.
-        self.calc_8_bit = False
+        self.calc_8_bit = True
 
     def getParameterInfo(self):
         return [
@@ -131,13 +130,6 @@ class RVTBlend:
             rendered_image = rvt.vis.byte_scale(data=rendered_image, c_min=0.0, c_max=1.0)
 
         pixelBlocks['output_pixels'] = rendered_image.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del top_raster
-        del background_raster
-        del pixel_size
-        del rendered_image
-        gc.collect()
 
         return pixelBlocks
 

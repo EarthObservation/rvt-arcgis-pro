@@ -23,7 +23,6 @@ COPYRIGHT:
 import numpy as np
 import rvt.vis
 import rvt.blend_func
-import gc
 
 
 class RVTASvf:
@@ -38,10 +37,10 @@ class RVTASvf:
         self.direction = 315.
         self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
-        self.calc_8_bit = False
-        self.mode_bytscl = "percent"
-        self.min_bytscl = 2
-        self.max_bytscl = 2
+        self.calc_8_bit = True
+        self.mode_bytscl = "value"
+        self.min_bytscl = 0.65
+        self.max_bytscl = 1
 
     def getParameterInfo(self):
         return [
@@ -154,14 +153,6 @@ class RVTASvf:
             asvf = rvt.vis.byte_scale(data=asvf, no_data=no_data)
 
         pixelBlocks['output_pixels'] = asvf.astype(props['pixelType'], copy=False)
-
-        # release memory
-        del dem
-        del pixel_size
-        del no_data
-        del dict_asvf
-        del asvf
-        gc.collect()
 
         return pixelBlocks
 
