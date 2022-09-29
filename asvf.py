@@ -38,9 +38,9 @@ class RVTASvf:
         self.padding = int(self.max_rad)
         # 8bit (bytscale) parameters
         self.calc_8_bit = False
-        self.mode_bytscl = "percent"
-        self.min_bytscl = 2
-        self.max_bytscl = 2
+        self.mode_bytscl = "value"
+        self.min_bytscl = 0.65
+        self.max_bytscl = 1
 
     def getParameterInfo(self):
         return [
