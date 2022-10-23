@@ -44,7 +44,7 @@
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID9'>
 				<Name>calc_8_bit</Name>
 				<Description/>
-				<Value xsi:type='xs:int'>0</Value>
+				<Value xsi:type='xs:int'>1</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='xs:string'>[functions]Custom\rvt-arcgis-pro\colormap.py</AnyType>

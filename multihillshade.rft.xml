@@ -25,7 +25,7 @@
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
 				<Name>calc_8_bit</Name>
 				<Description/>
-				<Value xsi:type='xs:int'>0</Value>
+				<Value xsi:type='xs:int'>1</Value>
 				<IsDataset>false</IsDataset>
 			</AnyType>
 			<AnyType xsi:type='typens:RasterFunctionVariable' id='ID7'>
