@@ -46,3 +46,6 @@ Development of RVT was part financed by the European Commission's Culture Progra
 ## License
 This project is licensed under the terms of the [Apache License](LICENSE).
 
+## About
+RVT Raster functions for ArcGIS by Žiga Kokalj, Žiga Maroh, Krištof Oštir and Guenter Doerffel, 2022.
+Developed in collaboration among ZRC SAZU, University of Ljubljana and Esri.
