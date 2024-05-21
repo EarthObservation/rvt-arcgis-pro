@@ -14,6 +14,7 @@ Credits:
     Klemen Čotar
     Maja Somrak
     Žiga Maroh
+    Nejc Čož
 
 COPYRIGHT:
     Research Centre of the Slovenian Academy of Sciences and Arts
@@ -21,6 +22,7 @@ COPYRIGHT:
 """
 
 import numpy as np
+
 import rvt.vis
 
 
@@ -28,18 +30,25 @@ class RVTMstp:
     def __init__(self):
         self.name = "RVT Multi-scale topographic position"
         self.description = "Calculates Multi-scale topographic position."
+
         # default values
-        self.local_scale_min = 1.
-        self.local_scale_max = 5.
-        self.local_scale_step = 1.
-        self.meso_scale_min = 5.
-        self.meso_scale_max = 50.
-        self.meso_scale_step = 5.
-        self.broad_scale_min = 50.
-        self.broad_scale_max = 500.
-        self.broad_scale_step = 50.
+        self.local_scale_min = 3.
+        self.local_scale_max = 21.
+        self.local_scale_step = 2.
+        self.meso_scale_min = 23.
+        self.meso_scale_max = 203.
+        self.meso_scale_step = 18.
+        self.broad_scale_min = 223.
+        self.broad_scale_max = 2023.
+        self.broad_scale_step = 180.
         self.lightness = 1.2
         self.padding = int(self.broad_scale_max)
+
+        # 8bit (bytscale) parameters
+        self.calc_8_bit = True
+        self.mode_bytscl = "value"
+        self.min_bytscl = 0
+        self.max_bytscl = 1
 
     def getParameterInfo(self):
         return [
@@ -130,16 +139,31 @@ class RVTMstp:
                 'required': True,
                 'displayName': "Lightness",
                 'description': "Lightness to control MSTP brightness."
+            },
+            {
+                'name': 'calc_8_bit',
+                'dataType': 'boolean',
+                'value': self.calc_8_bit,
+                'required': False,
+                'displayName': "Calculate 8-bit",
+                'description': "If True it returns 8-bit raster (0-255)."
             }
         ]
 
     def getConfiguration(self, **scalars):
-        self.prepare(local_scale_min=scalars.get('local_scale_min'), local_scale_max=scalars.get('local_scale_max'),
-                     local_scale_step=scalars.get('local_scale_step'), meso_scale_min=scalars.get('meso_scale_min'),
-                     meso_scale_max=scalars.get('meso_scale_max'), meso_scale_step=scalars.get('meso_scale_step'),
-                     broad_scale_min=scalars.get('broad_scale_min'), broad_scale_max=scalars.get('broad_scale_max'),
-                     broad_scale_step=scalars.get('broad_scale_step'), lightness=scalars.get('lightness')
-                     )
+        self.prepare(
+            local_scale_min=scalars.get('local_scale_min'),
+            local_scale_max=scalars.get('local_scale_max'),
+            local_scale_step=scalars.get('local_scale_step'),
+            meso_scale_min=scalars.get('meso_scale_min'),
+            meso_scale_max=scalars.get('meso_scale_max'),
+            meso_scale_step=scalars.get('meso_scale_step'),
+            broad_scale_min=scalars.get('broad_scale_min'),
+            broad_scale_max=scalars.get('broad_scale_max'),
+            broad_scale_step=scalars.get('broad_scale_step'),
+            lightness=scalars.get('lightness'),
+            calc_8_bit=scalars.get("calc_8_bit")
+        )
         return {
             'compositeRasters': False,
             'inheritProperties': 2 | 4,
@@ -154,7 +178,10 @@ class RVTMstp:
         kwargs['output_info']['bandCount'] = 3
         r = kwargs['raster_info']
         kwargs['output_info']['noData'] = np.nan
-        kwargs['output_info']['pixelType'] = 'u1'
+        if not self.calc_8_bit:
+            kwargs['output_info']['pixelType'] = 'f4'
+        else:
+            kwargs['output_info']['pixelType'] = 'u1'
         kwargs['output_info']['histogram'] = ()
         kwargs['output_info']['statistics'] = ()
         return kwargs
@@ -166,11 +193,23 @@ class RVTMstp:
         if no_data is not None:
             no_data = props["noData"][0]
 
-        mstp = rvt.vis.mstp(dem=dem, local_scale=(self.local_scale_min, self.local_scale_max, self.local_scale_step),
-                            meso_scale=(self.meso_scale_min, self.meso_scale_max, self.meso_scale_step),
-                            broad_scale=(self.broad_scale_min, self.broad_scale_max, self.broad_scale_step),
-                            lightness=self.lightness, no_data=no_data)
+        mstp = rvt.vis.mstp(
+            dem=dem,
+            local_scale=(self.local_scale_min, self.local_scale_max, self.local_scale_step ),
+            meso_scale=(self.meso_scale_min, self.meso_scale_max, self.meso_scale_step),
+            broad_scale=(self.broad_scale_min, self.broad_scale_max, self.broad_scale_step),
+            lightness=self.lightness,
+            no_data=no_data
+        )
         mstp = mstp[:, self.padding:-self.padding, self.padding:-self.padding]  # remove padding
+
+        if self.calc_8_bit:
+            mstp = rvt.vis.byte_scale(
+                data=mstp,
+                no_data=no_data,
+                c_min=self.min_bytscl,
+                c_max=self.max_bytscl
+            )
 
         pixelBlocks['output_pixels'] = mstp.astype(props['pixelType'], copy=False)
 
@@ -179,12 +218,28 @@ class RVTMstp:
     def updateKeyMetadata(self, names, bandIndex, **keyMetadata):
         if bandIndex == -1:
             name = "MSTP_L{}.tif".format(self.lightness)
-            keyMetadata['datatype'] = 'Processed'
+            if self.calc_8_bit:
+                keyMetadata['datatype'] = 'Processed'
+                name += "_8bit"
+            else:
+                keyMetadata['datatype'] = 'Generic'
             keyMetadata['productname'] = 'RVT {}'.format(name)
         return keyMetadata
 
-    def prepare(self, local_scale_min=1, local_scale_max=10, local_scale_step=1, meso_scale_min=10, meso_scale_max=50,
-                meso_scale_step=5, broad_scale_min=50, broad_scale_max=500, broad_scale_step=50, lightness=1.2):
+    def prepare(
+            self,
+            local_scale_min,
+            local_scale_max,
+            local_scale_step,
+            meso_scale_min,
+            meso_scale_max,
+            meso_scale_step,
+            broad_scale_min,
+            broad_scale_max,
+            broad_scale_step,
+            lightness,
+            calc_8_bit
+    ):
         self.local_scale_min = int(local_scale_min)
         self.local_scale_max = int(local_scale_max)
         self.local_scale_step = int(local_scale_step)
@@ -196,6 +251,7 @@ class RVTMstp:
         self.broad_scale_step = int(broad_scale_step)
         self.lightness = float(lightness)
         self.padding = int(self.broad_scale_max)
+        self.calc_8_bit = calc_8_bit
 
 
 def change_0_pad_to_edge_pad(dem, pad_width):

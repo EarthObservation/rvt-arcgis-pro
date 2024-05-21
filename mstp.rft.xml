@@ -9,6 +9,7 @@
   <Arguments xsi:type="typens:PythonAdapterFunctionArguments" id="ID2">
     <Names xsi:type="typens:ArrayOfString" id="ID3">
       <String>raster</String>
+      <String>calc_8_bit</String>
       <String>local_scale_min</String>
       <String>local_scale_max</String>
       <String>local_scale_step</String>
@@ -31,67 +32,73 @@
         </Value>
         <IsDataset>true</IsDataset>
       </AnyType>
+      <AnyType xsi:type='typens:RasterFunctionVariable' id='ID6'>
+        <Name>calc_8_bit</Name>
+        <Description/>
+        <Value xsi:type='xs:int'>1</Value>
+        <IsDataset>false</IsDataset>
+      </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID6">
         <Name>local_scale_min</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">1</Value>
+        <Value xsi:type="xs:double">3</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID7">
         <Name>local_scale_max</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">10</Value>
+        <Value xsi:type="xs:double">21</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID8">
         <Name>local_scale_step</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">1</Value>
+        <Value xsi:type="xs:double">2</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID9">
         <Name>meso_scale_min</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">10</Value>
+        <Value xsi:type="xs:double">23</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID10">
         <Name>meso_scale_max</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">50</Value>
+        <Value xsi:type="xs:double">203</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID11">
         <Name>meso_scale_step</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">5</Value>
+        <Value xsi:type="xs:double">18</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID12">
         <Name>broad_scale_min</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">50</Value>
+        <Value xsi:type="xs:double">223</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID13">
         <Name>broad_scale_max</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">500</Value>
+        <Value xsi:type="xs:double">2023</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID14">
         <Name>broad_scale_step</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">50</Value>
+        <Value xsi:type="xs:double">180</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID15">
