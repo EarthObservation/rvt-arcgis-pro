@@ -32,15 +32,15 @@ class RVTMstp:
         self.description = "Calculates Multi-scale topographic position."
 
         # default values
-        self.local_scale_min = 3.
-        self.local_scale_max = 21.
-        self.local_scale_step = 2.
-        self.meso_scale_min = 23.
-        self.meso_scale_max = 203.
-        self.meso_scale_step = 18.
-        self.broad_scale_min = 223.
-        self.broad_scale_max = 2023.
-        self.broad_scale_step = 180.
+        self.local_scale_min = 1.
+        self.local_scale_max = 5.
+        self.local_scale_step = 1.
+        self.meso_scale_min = 5.
+        self.meso_scale_max = 50.
+        self.meso_scale_step = 5.
+        self.broad_scale_min = 50.
+        self.broad_scale_max = 500.
+        self.broad_scale_step = 50.
         self.lightness = 1.2
         self.padding = int(self.broad_scale_max)
 
