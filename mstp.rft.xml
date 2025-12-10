@@ -42,63 +42,63 @@
         <Name>local_scale_min</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">3</Value>
+        <Value xsi:type="xs:double">1</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID7">
         <Name>local_scale_max</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">21</Value>
+        <Value xsi:type="xs:double">5</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID8">
         <Name>local_scale_step</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">2</Value>
+        <Value xsi:type="xs:double">1</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID9">
         <Name>meso_scale_min</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">23</Value>
+        <Value xsi:type="xs:double">5</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID10">
         <Name>meso_scale_max</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">203</Value>
+        <Value xsi:type="xs:double">50</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID11">
         <Name>meso_scale_step</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">18</Value>
+        <Value xsi:type="xs:double">5</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID12">
         <Name>broad_scale_min</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">223</Value>
+        <Value xsi:type="xs:double">50</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID13">
         <Name>broad_scale_max</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">2023</Value>
+        <Value xsi:type="xs:double">500</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID14">
         <Name>broad_scale_step</Name>
         <Description>
         </Description>
-        <Value xsi:type="xs:double">180</Value>
+        <Value xsi:type="xs:double">50</Value>
         <IsDataset>false</IsDataset>
       </AnyType>
       <AnyType xsi:type="typens:RasterFunctionVariable" id="ID15">
